@@ -1,111 +1,83 @@
-:root {
-  --text: #6b6375;
-  --text-h: #08060d;
-  --bg: #fff;
-  --border: #e5e4e7;
-  --code-bg: #f4f3ec;
-  --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --accent-border: rgba(170, 59, 255, 0.5);
-  --social-bg: rgba(244, 243, 236, 0.5);
-  --shadow:
-    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
+[data-bs-theme="dark"] {
+  --bs-body-bg: #120D0E;
+  --bs-body-color: #F5EEE8;
+  --bs-border-color: #3B2A2D;
+  --bs-secondary-bg: #1D1517;
+  --bs-tertiary-bg: #1D1517;
+  --bs-card-bg: #1D1517;
+  --bs-primary: #6E1F2A;
+  --bs-primary-rgb: 110, 31, 42;
+  --bs-secondary: #B87333;
+  --bs-secondary-rgb: 184, 115, 51;
+  --bs-link-color: #B87333;
+  --bs-link-hover-color: #D39A61;
+  --bs-body-font-family: "Manrope", var(--bs-font-sans-serif);
+}
 
-  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --mono: ui-monospace, Consolas, monospace;
+.pagina {
+  background-image: url("./assets/fondos/stars-pattern.svg");
+  background-repeat: repeat;
+  animation: aparicion-pagina .35s ease-out;
+}
 
-  font: 18px/145% var(--sans);
-  letter-spacing: 0.18px;
-  color-scheme: light dark;
-  color: var(--text);
-  background: var(--bg);
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+.pagina h1,
+.pagina h2,
+.pagina h3 {
+  font-family: "DM Serif Display", serif;
+}
 
-  @media (max-width: 1024px) {
-    font-size: 16px;
+.pagina .ratio > img {
+  object-fit: cover;
+}
+
+.pagina a:not(.btn):focus-visible {
+  outline: 2px solid var(--bs-link-hover-color);
+  outline-offset: 3px;
+}
+
+.ratio-2x3 {
+  --bs-aspect-ratio: 150%;
+}
+
+.btn-marca {
+  --bs-btn-color: #1D1517;
+  --bs-btn-bg: #B87333;
+  --bs-btn-border-color: #B87333;
+  --bs-btn-hover-color: #1D1517;
+  --bs-btn-hover-bg: #D39A61;
+  --bs-btn-hover-border-color: #D39A61;
+  --bs-btn-active-color: #1D1517;
+  --bs-btn-active-bg: #D39A61;
+  --bs-btn-active-border-color: #D39A61;
+  --bs-btn-focus-shadow-rgb: 184, 115, 51;
+}
+
+@keyframes aparicion-pagina {
+  from {
+    opacity: 0;
   }
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --text: #9ca3af;
-    --text-h: #f3f4f6;
-    --bg: #16171d;
-    --border: #2e303a;
-    --code-bg: #1f2028;
-    --accent: #c084fc;
-    --accent-bg: rgba(192, 132, 252, 0.15);
-    --accent-border: rgba(192, 132, 252, 0.5);
-    --social-bg: rgba(47, 48, 58, 0.5);
-    --shadow:
-      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
-  }
-
-  #social .button-icon {
-    filter: invert(1) brightness(2);
+@media (prefers-reduced-motion: reduce) {
+  .pagina {
+    animation: none;
   }
 }
 
-body {
-  margin: 0;
-}
+@media (hover: hover) {
+  .tarjeta-interactiva:hover,
+  .tarjeta-interactiva:focus-within {
+    box-shadow: 0 .5rem 1.25rem rgba(0, 0, 0, .55) !important;
+    border-color: var(--bs-secondary);
+  }
 
-#root {
-  width: 1126px;
-  max-width: 100%;
-  margin: 0 auto;
-  text-align: center;
-  border-inline: 1px solid var(--border);
-  min-height: 100svh;
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
-}
-
-h1,
-h2 {
-  font-family: var(--heading);
-  font-weight: 500;
-  color: var(--text-h);
-}
-
-h1 {
-  font-size: 56px;
-  letter-spacing: -1.68px;
-  margin: 32px 0;
-  @media (max-width: 1024px) {
-    font-size: 36px;
-    margin: 20px 0;
+  .btn:where(:not(:disabled, .disabled)):hover:not(:focus-visible, :active) {
+    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .4);
   }
 }
-h2 {
-  font-size: 24px;
-  line-height: 118%;
-  letter-spacing: -0.24px;
-  margin: 0 0 8px;
-  @media (max-width: 1024px) {
-    font-size: 20px;
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .tarjeta-interactiva {
+    transition: box-shadow .3s ease, border-color .3s ease;
   }
-}
-p {
-  margin: 0;
-}
-
-code,
-.counter {
-  font-family: var(--mono);
-  display: inline-flex;
-  border-radius: 4px;
-  color: var(--text-h);
-}
-
-code {
-  font-size: 15px;
-  line-height: 135%;
-  padding: 4px 8px;
-  background: var(--code-bg);
 }
