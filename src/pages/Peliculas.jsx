@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Container } from 'react-bootstrap'
 import FiltrosPeliculas from '../components/peliculas/FiltrosPeliculas.jsx'
 import SeccionPeliculas from '../components/peliculas/SeccionPeliculas.jsx'
+import Seo from '../components/seo/Seo.jsx'
 import { peliculas } from '../datos/peliculas.js'
 import { normalizarTexto } from '../utilidades/busqueda.js'
 
@@ -19,6 +20,10 @@ const Peliculas = () => {
 
   return (
     <Container className="py-4">
+      <Seo
+        titulo="Cartelera de cine en Tucumán | Películas"
+        descripcion="Consultá las películas en cartelera y los próximos estrenos en Tucumán, y buscalas por título o por estado."
+      />
       <h1 className="mb-4">Cartelera</h1>
       <FiltrosPeliculas termino={termino} estado={estado} alCambiarTermino={setTermino} alCambiarEstado={setEstado} />
       <SeccionPeliculas idTitulo="titulo-en-cartelera" titulo="En cartelera" peliculas={enCartelera} />
