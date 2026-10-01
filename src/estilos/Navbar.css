@@ -1,0 +1,7 @@
+.encabezado-sitio .navbar {
+  background-color: var(--bs-secondary-bg);
+}
+
+.encabezado-sitio .navbar-brand {
+  font-family: "DM Serif Display", serif;
+}
