@@ -3,7 +3,7 @@ import { Badge, Button, Col, Container, Ratio, Row } from 'react-bootstrap'
 import { detallesPeliculas } from '../../datos/detallesPeliculas.js'
 import { ID_PELICULA_PORTADA, peliculas } from '../../datos/peliculas.js'
 import { RUTA_PELICULAS } from '../../datos/rutas.js'
-import { formatearDuracion, formatearEstado } from '../../utilidades/formatos.js'
+import { formatearDuracion, formatearEstado, obtenerVarianteEstado } from '../../utilidades/formatos.js'
 
 const Portada = () => {
   const pelicula = peliculas.find((item) => item.id === ID_PELICULA_PORTADA)
@@ -21,7 +21,7 @@ const Portada = () => {
           <Col xs={12} md={7} lg={8}>
             <article>
               <header>
-                <Badge bg="secondary" className="mb-2">
+                <Badge bg={obtenerVarianteEstado(pelicula.estado)} className="mb-2">
                   {formatearEstado(pelicula.estado)}
                 </Badge>
                 <h1 id="titulo-portada">{pelicula.titulo}</h1>
