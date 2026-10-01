@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { Button, Col, Container, Row } from 'react-bootstrap'
 import GrillaPeliculas from '../components/peliculas/GrillaPeliculas.jsx'
 import Portada from '../components/peliculas/Portada.jsx'
+import Seo from '../components/seo/Seo.jsx'
 import TarjetaSucursal from '../components/sucursales/TarjetaSucursal.jsx'
 import { peliculas } from '../datos/peliculas.js'
 import { RUTA_PELICULAS } from '../datos/rutas.js'
@@ -15,6 +16,10 @@ const sucursalesDestacadas = sucursales.filter((sucursal) => sucursal.destacada)
 const Inicio = () => {
   return (
     <>
+      <Seo
+        titulo="Cine Tucumán | Cartelera y próximos estrenos"
+        descripcion="Descubrí las películas en cartelera, los próximos estrenos y los cines de Tucumán."
+      />
       <Portada />
       <section className="py-5" aria-labelledby="titulo-destacadas">
         <Container>
