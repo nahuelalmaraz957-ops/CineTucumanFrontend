@@ -17,8 +17,8 @@
 }
 
 .pagina {
-  background-image: url("./assets/fondos/stars-pattern.svg");
-  background-repeat: repeat;
+  background-image: radial-gradient(ellipse 90% 640px at 50% 0, #2E1B1F, transparent);
+  background-repeat: no-repeat;
   animation: aparicion-pagina .35s ease-out;
 }
 
