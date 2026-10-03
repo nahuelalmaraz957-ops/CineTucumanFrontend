@@ -4,7 +4,7 @@ import { Container } from 'react-bootstrap'
 import FiltrosPeliculas from '../components/peliculas/FiltrosPeliculas.jsx'
 import SeccionPeliculas from '../components/peliculas/SeccionPeliculas.jsx'
 import Seo from '../components/seo/Seo.jsx'
-import { peliculas } from '../datos/peliculas.js'
+import { cartelera } from '../datos/cartelera.js'
 import { ESTADO_EN_CARTELERA, ESTADO_PROXIMAMENTE } from '../datos/estados.js'
 import { HASH_BUSCADOR } from '../datos/rutas.js'
 import { normalizarTexto } from '../utilidades/busqueda.js'
@@ -22,7 +22,7 @@ const Peliculas = () => {
   }, [ubicacion])
 
   const terminoNormalizado = normalizarTexto(termino)
-  const resultados = peliculas.filter(
+  const resultados = cartelera.filter(
     (pelicula) =>
       (estado === '' || pelicula.estado === estado) && normalizarTexto(pelicula.titulo).includes(terminoNormalizado),
   )

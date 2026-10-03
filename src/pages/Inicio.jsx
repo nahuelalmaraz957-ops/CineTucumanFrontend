@@ -4,14 +4,14 @@ import GrillaPeliculas from '../components/peliculas/GrillaPeliculas.jsx'
 import Portada from '../components/peliculas/Portada.jsx'
 import Seo from '../components/seo/Seo.jsx'
 import TarjetaSucursal from '../components/sucursales/TarjetaSucursal.jsx'
-import { peliculas } from '../datos/peliculas.js'
+import { cartelera } from '../datos/cartelera.js'
 import { ESTADO_EN_CARTELERA, ESTADO_PROXIMAMENTE } from '../datos/estados.js'
 import { RUTA_PELICULAS } from '../datos/rutas.js'
 import { sucursales } from '../datos/sucursales.js'
 
-const destacadas = peliculas.filter((pelicula) => pelicula.destacada && pelicula.estado === ESTADO_EN_CARTELERA)
-const proximamente = peliculas.filter((pelicula) => pelicula.estado === ESTADO_PROXIMAMENTE && pelicula.fechaEstreno)
-const proximosEstrenos = peliculas.filter(
+const destacadas = cartelera.filter((pelicula) => pelicula.destacada && pelicula.estado === ESTADO_EN_CARTELERA)
+const proximamente = cartelera.filter((pelicula) => pelicula.estado === ESTADO_PROXIMAMENTE && pelicula.fechaEstreno)
+const proximosEstrenos = cartelera.filter(
   (pelicula) => pelicula.estado === ESTADO_PROXIMAMENTE && !pelicula.fechaEstreno,
 )
 const sucursalesDestacadas = sucursales.filter((sucursal) => sucursal.destacada)
@@ -35,22 +35,26 @@ const Inicio = () => {
             </h3>
             <GrillaPeliculas peliculas={destacadas} />
           </section>
-          <section aria-labelledby="titulo-proximamente">
-            <h3 id="titulo-proximamente" className="mb-3">
-              Próximamente
-            </h3>
-            <GrillaPeliculas peliculas={proximamente} />
-          </section>
+          {proximamente.length > 0 && (
+            <section aria-labelledby="titulo-proximamente">
+              <h3 id="titulo-proximamente" className="mb-3">
+                Próximamente
+              </h3>
+              <GrillaPeliculas peliculas={proximamente} />
+            </section>
+          )}
         </Container>
       </section>
-      <section className="py-5" aria-labelledby="titulo-proximos-estrenos">
-        <Container>
-          <h2 id="titulo-proximos-estrenos" className="mb-4">
-            Próximos estrenos
-          </h2>
-          <GrillaPeliculas peliculas={proximosEstrenos} estaCompacta />
-        </Container>
-      </section>
+      {proximosEstrenos.length > 0 && (
+        <section className="py-5" aria-labelledby="titulo-proximos-estrenos">
+          <Container>
+            <h2 id="titulo-proximos-estrenos" className="mb-4">
+              Próximos estrenos
+            </h2>
+            <GrillaPeliculas peliculas={proximosEstrenos} estaCompacta />
+          </Container>
+        </section>
+      )}
       <section className="py-5" aria-labelledby="titulo-cines">
         <Container>
           <h2 id="titulo-cines" className="mb-4">
