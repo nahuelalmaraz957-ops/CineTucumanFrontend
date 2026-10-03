@@ -28,6 +28,13 @@ const Peliculas = () => {
   )
   const enCartelera = resultados.filter((pelicula) => pelicula.estado === ESTADO_EN_CARTELERA)
   const proximamente = resultados.filter((pelicula) => pelicula.estado === ESTADO_PROXIMAMENTE)
+  const tieneFiltros = termino !== '' || estado !== ''
+
+  const limpiarFiltros = () => {
+    setTermino('')
+    setEstado('')
+    referenciaBuscador.current.focus()
+  }
 
   return (
     <Container className="py-4">
@@ -40,9 +47,14 @@ const Peliculas = () => {
         termino={termino}
         estado={estado}
         referenciaBuscador={referenciaBuscador}
+        tieneFiltros={tieneFiltros}
         alCambiarTermino={setTermino}
         alCambiarEstado={setEstado}
+        alLimpiar={limpiarFiltros}
       />
+      <p className="text-body-secondary mb-4" aria-live="polite">
+        Mostrando {resultados.length} de {cartelera.length} películas
+      </p>
       <SeccionPeliculas idTitulo="titulo-en-cartelera" titulo="En cartelera" peliculas={enCartelera} />
       <SeccionPeliculas idTitulo="titulo-proximamente" titulo="Próximamente" peliculas={proximamente} />
       {resultados.length === 0 && (
