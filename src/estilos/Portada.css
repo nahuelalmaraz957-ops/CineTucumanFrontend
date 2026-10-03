@@ -1,0 +1,50 @@
+.portada-marco {
+  position: relative;
+  border: 3px solid var(--bs-secondary);
+  border-radius: .875rem;
+  background-color: var(--bs-secondary-bg);
+}
+
+.portada-marco::before,
+.portada-marco::after {
+  content: "";
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  height: 16px;
+  background: radial-gradient(circle, #FFE9A8 38%, transparent 43%) 0 0 / 28px 16px;
+  filter: drop-shadow(0 0 5px var(--bs-secondary));
+}
+
+.portada-marco::before {
+  top: -9px;
+}
+
+.portada-marco::after {
+  bottom: -9px;
+}
+
+.portada-mascota {
+  position: relative;
+  text-align: center;
+}
+
+.portada-mascota img {
+  width: 100%;
+  max-width: 190px;
+}
+
+.portada-burbuja {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: .4rem .9rem;
+  border-radius: .4rem;
+  background-color: var(--bs-body-color);
+  box-shadow: 3px 3px 0 var(--bs-secondary);
+  color: var(--bs-body-bg);
+  font-family: "Anton", sans-serif;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  transform: rotate(-5deg);
+}

@@ -3,5 +3,8 @@
 }
 
 .pie-sitio h2 {
-  font-family: "DM Serif Display", serif;
+  font-family: "Anton", sans-serif;
+  font-weight: 400;
+  letter-spacing: .045em;
+  text-transform: uppercase;
 }

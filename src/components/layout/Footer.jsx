@@ -6,7 +6,7 @@ import '../../estilos/Footer.css'
 
 const Footer = () => {
   return (
-    <footer className="pie-sitio border-top border-secondary-subtle" data-bs-theme="dark">
+    <footer className="pie-sitio border-top border-3 border-secondary" data-bs-theme="dark">
       <Container className="py-5">
         <Row className="gy-4 gy-lg-0">
           <Col xs={12} lg={4}>
