@@ -3,5 +3,7 @@
 }
 
 .encabezado-sitio .navbar-brand {
-  font-family: "DM Serif Display", serif;
+  font-family: "Anton", sans-serif;
+  letter-spacing: .045em;
+  text-transform: uppercase;
 }

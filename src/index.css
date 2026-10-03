@@ -1,17 +1,19 @@
 [data-bs-theme="dark"] {
-  --bs-body-bg: #120D0E;
-  --bs-body-color: #F5EEE8;
-  --bs-border-color: #3B2A2D;
-  --bs-secondary-bg: #1D1517;
-  --bs-tertiary-bg: #1D1517;
-  --bs-card-bg: #1D1517;
-  --bs-primary: #6E1F2A;
-  --bs-primary-rgb: 110, 31, 42;
-  --bs-secondary: #B87333;
-  --bs-secondary-rgb: 184, 115, 51;
-  --bs-link-color: #B87333;
-  --bs-link-hover-color: #D39A61;
-  --bs-body-font-family: "Manrope", var(--bs-font-sans-serif);
+  --bs-body-bg: #1B1214;
+  --bs-body-color: #F8F3E6;
+  --bs-border-color: #4A2F35;
+  --bs-secondary-bg: #241619;
+  --bs-tertiary-bg: #241619;
+  --bs-card-bg: #241619;
+  --bs-primary: #C43E2A;
+  --bs-primary-rgb: 196, 62, 42;
+  --bs-secondary: #EDB945;
+  --bs-secondary-rgb: 237, 185, 69;
+  --bs-link-color: #EDB945;
+  --bs-link-color-rgb: 237, 185, 69;
+  --bs-link-hover-color: #F4CE72;
+  --bs-link-hover-color-rgb: 244, 206, 114;
+  --bs-body-font-family: "DM Sans", var(--bs-font-sans-serif);
 }
 
 .pagina {
@@ -23,7 +25,10 @@
 .pagina h1,
 .pagina h2,
 .pagina h3 {
-  font-family: "DM Serif Display", serif;
+  font-family: "Anton", sans-serif;
+  font-weight: 400;
+  letter-spacing: .045em;
+  text-transform: uppercase;
 }
 
 .pagina .ratio > img {
@@ -35,21 +40,37 @@
   outline-offset: 3px;
 }
 
+.badge {
+  font-family: "Anton", sans-serif;
+  font-weight: 400;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.badge.bg-secondary {
+  --bs-badge-color: var(--bs-body-bg);
+}
+
 .ratio-2x3 {
   --bs-aspect-ratio: 150%;
 }
 
 .btn-marca {
-  --bs-btn-color: #1D1517;
-  --bs-btn-bg: #B87333;
-  --bs-btn-border-color: #B87333;
-  --bs-btn-hover-color: #1D1517;
-  --bs-btn-hover-bg: #D39A61;
-  --bs-btn-hover-border-color: #D39A61;
-  --bs-btn-active-color: #1D1517;
-  --bs-btn-active-bg: #D39A61;
-  --bs-btn-active-border-color: #D39A61;
-  --bs-btn-focus-shadow-rgb: 184, 115, 51;
+  --bs-btn-color: #1B1214;
+  --bs-btn-bg: #EDB945;
+  --bs-btn-border-color: #EDB945;
+  --bs-btn-hover-color: #1B1214;
+  --bs-btn-hover-bg: #F4CE72;
+  --bs-btn-hover-border-color: #F4CE72;
+  --bs-btn-active-color: #1B1214;
+  --bs-btn-active-bg: #F4CE72;
+  --bs-btn-active-border-color: #F4CE72;
+  --bs-btn-focus-shadow-rgb: 237, 185, 69;
+  font-family: "Anton", sans-serif;
+  font-weight: 400;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  box-shadow: 4px 4px 0 var(--bs-primary);
 }
 
 @keyframes aparicion-pagina {
@@ -71,7 +92,7 @@
     border-color: var(--bs-secondary);
   }
 
-  .btn:where(:not(:disabled, .disabled)):hover:not(:focus-visible, :active) {
+  .btn:where(:not(:disabled, .disabled, .btn-marca)):hover:not(:focus-visible, :active) {
     box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .4);
   }
 }
