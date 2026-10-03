@@ -3,7 +3,7 @@ import { Outlet, useLocation, useNavigationType } from 'react-router-dom'
 import Footer from './Footer.jsx'
 import Navbar from './Navbar.jsx'
 
-const Layout = () => {
+const Layout = ({ cantidadEnCarrito }) => {
   const ubicacion = useLocation()
   const tipoNavegacion = useNavigationType()
 
@@ -15,7 +15,7 @@ const Layout = () => {
 
   return (
     <>
-      <Navbar />
+      <Navbar cantidadEnCarrito={cantidadEnCarrito} />
       <main key={ubicacion.pathname} className="pagina">
         <Outlet />
       </main>

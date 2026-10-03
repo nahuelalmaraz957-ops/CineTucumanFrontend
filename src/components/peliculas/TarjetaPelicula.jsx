@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import { Badge, Button, Card, Ratio } from 'react-bootstrap'
 import Icono from '../comunes/Icono.jsx'
 import { ESTADO_EN_CARTELERA } from '../../datos/estados.js'
-import { RUTA_PELICULAS } from '../../datos/rutas.js'
+import { rutaFunciones } from '../../datos/rutas.js'
 import {
   TEXTO_POR_CONFIRMAR,
   formatearDuracion,
@@ -49,7 +49,7 @@ const TarjetaPelicula = ({ pelicula, tieneBoton = true }) => {
           </Card.Text>
         )}
         {estaEnCartelera && tieneBoton && (
-          <Button as={Link} to={RUTA_PELICULAS} variant="marca" className="mt-auto">
+          <Button as={Link} to={rutaFunciones(pelicula.id)} variant="marca" className="mt-auto">
             Ver funciones
           </Button>
         )}

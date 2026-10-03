@@ -77,9 +77,6 @@ const Inicio = () => {
             <Button as={Link} to={RUTA_PELICULAS} variant="marca" size="lg">
               Comprar entradas
             </Button>
-            <Button as={Link} to={RUTA_PELICULAS} variant="outline-light" size="lg">
-              Ver cartelera
-            </Button>
           </div>
         </Container>
       </section>
