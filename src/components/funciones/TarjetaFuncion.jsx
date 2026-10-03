@@ -4,17 +4,18 @@ import { ESTADO_FUNCION_AGOTADA, ESTADO_FUNCION_DISPONIBLE } from '../../datos/e
 import { rutaButacas } from '../../datos/rutas.js'
 import { formatearEstadoFuncion, formatearMoneda } from '../../utilidades/formatos.js'
 
-const TarjetaFuncion = ({ funcion }) => {
+const TarjetaFuncion = ({ funcion, haEmpezado }) => {
   const estaAgotada = funcion.estado === ESTADO_FUNCION_AGOTADA
+  const sePuedeElegir = !haEmpezado && !estaAgotada
 
   return (
-    <Card className="tarjeta-interactiva h-100">
+    <Card className={haEmpezado ? 'h-100 opacity-50' : 'tarjeta-interactiva h-100'}>
       <Card.Body className="d-flex flex-column gap-2">
         <div className="d-flex justify-content-between align-items-center">
           <Card.Title as="h3" className="mb-0">
             {funcion.horario}
           </Card.Title>
-          {funcion.estado !== ESTADO_FUNCION_DISPONIBLE && (
+          {!haEmpezado && funcion.estado !== ESTADO_FUNCION_DISPONIBLE && (
             <Badge bg={estaAgotada ? 'primary' : 'secondary'}>{formatearEstadoFuncion(funcion.estado)}</Badge>
           )}
         </div>
@@ -22,13 +23,13 @@ const TarjetaFuncion = ({ funcion }) => {
           {funcion.formato} · {funcion.idioma} · {funcion.sala}
         </Card.Text>
         <Card.Text className="h5 mb-3">{formatearMoneda(funcion.precio)}</Card.Text>
-        {estaAgotada ? (
-          <Button variant="outline-secondary" className="mt-auto" disabled>
-            Agotada
-          </Button>
-        ) : (
+        {sePuedeElegir ? (
           <Button as={Link} to={rutaButacas(funcion.id)} variant="marca" className="mt-auto">
             Elegir butacas
+          </Button>
+        ) : (
+          <Button variant="outline-secondary" className="mt-auto" disabled>
+            {haEmpezado ? 'Ya empezó' : 'Agotada'}
           </Button>
         )}
       </Card.Body>

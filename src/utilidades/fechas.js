@@ -6,3 +6,6 @@ export const sumarDias = (fechaIso, dias) => {
 
   return fecha.toISOString().slice(0, 10)
 }
+
+export const obtenerHoraActual = () =>
+  new Date().toLocaleTimeString('en-GB', { timeZone: 'America/Argentina/Tucuman', hour: '2-digit', minute: '2-digit' })

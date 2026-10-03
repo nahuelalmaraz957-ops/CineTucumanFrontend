@@ -17,9 +17,21 @@ import {
   quitarItem,
   reemplazarEntrada,
 } from './utilidades/carrito.js'
+import { obtenerFechaDeHoy, obtenerHoraActual } from './utilidades/fechas.js'
+import { yaEmpezo } from './utilidades/funciones.js'
 
-const leerCarritoVigente = () =>
-  leerCarrito().filter((item) => item.tipo !== TIPO_ENTRADA || obtenerFuncion(item.idFuncion) !== undefined)
+const esEntradaVigente = (item, hoy, hora) => {
+  const funcion = obtenerFuncion(item.idFuncion)
+
+  return funcion !== undefined && !yaEmpezo(funcion, hoy, hora)
+}
+
+const leerCarritoVigente = () => {
+  const hoy = obtenerFechaDeHoy()
+  const hora = obtenerHoraActual()
+
+  return leerCarrito().filter((item) => item.tipo !== TIPO_ENTRADA || esEntradaVigente(item, hoy, hora))
+}
 
 const App = () => {
   const [carrito, setCarrito] = useState(leerCarritoVigente)

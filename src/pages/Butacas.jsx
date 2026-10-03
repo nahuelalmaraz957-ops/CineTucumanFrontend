@@ -10,6 +10,8 @@ import { ESTADO_FUNCION_AGOTADA } from '../datos/estados.js'
 import { RUTA_CARRITO, RUTA_PELICULAS } from '../datos/rutas.js'
 import { obtenerButacasOcupadas, obtenerFuncion } from '../servicios/funciones.js'
 import { TIPO_ENTRADA } from '../utilidades/carrito.js'
+import { obtenerFechaDeHoy, obtenerHoraActual } from '../utilidades/fechas.js'
+import { yaEmpezo } from '../utilidades/funciones.js'
 import NoEncontrada from './NoEncontrada.jsx'
 
 const Butacas = ({ alAgregarEntrada }) => {
@@ -23,6 +25,7 @@ const Butacas = ({ alAgregarEntrada }) => {
   const pelicula = cartelera.find((elemento) => elemento.id === funcion.peliculaId)
   const ocupadas = obtenerButacasOcupadas(funcion.id)
   const alcanzoMaximo = seleccionadas.length === MAXIMO_BUTACAS
+  const haEmpezado = yaEmpezo(funcion, obtenerFechaDeHoy(), obtenerHoraActual())
 
   const alternarButaca = (codigo) =>
     setSeleccionadas((actuales) =>
@@ -48,7 +51,12 @@ const Butacas = ({ alAgregarEntrada }) => {
         descripcion="Elegí hasta 6 butacas para tu función de Cine Tucumán."
       />
       <h1 className="mb-4">Elegí tus butacas</h1>
-      {funcion.estado === ESTADO_FUNCION_AGOTADA && (
+      {haEmpezado && (
+        <p role="status">
+          Esta función ya empezó. <Link to={RUTA_PELICULAS}>Ver la cartelera</Link>
+        </p>
+      )}
+      {!haEmpezado && funcion.estado === ESTADO_FUNCION_AGOTADA && (
         <p role="status">
           Esta función está agotada. <Link to={RUTA_PELICULAS}>Ver la cartelera</Link>
         </p>
@@ -59,6 +67,7 @@ const Butacas = ({ alAgregarEntrada }) => {
             ocupadas={ocupadas}
             seleccionadas={seleccionadas}
             alcanzoMaximo={alcanzoMaximo}
+            estaBloqueado={haEmpezado}
             alAlternar={alternarButaca}
           />
           <p className="small text-body-secondary text-center mt-4">
