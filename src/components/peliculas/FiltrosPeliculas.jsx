@@ -1,13 +1,18 @@
 import { Col, Form, Row } from 'react-bootstrap'
 
-const FiltrosPeliculas = ({ termino, estado, alCambiarTermino, alCambiarEstado }) => {
+const FiltrosPeliculas = ({ termino, estado, referenciaBuscador, alCambiarTermino, alCambiarEstado }) => {
   return (
     <Form className="mb-5" role="search" onSubmit={(evento) => evento.preventDefault()}>
       <Row className="g-3 align-items-end">
         <Col xs={12} md={6}>
           <Form.Group controlId="buscador-peliculas">
             <Form.Label>Buscar película</Form.Label>
-            <Form.Control type="search" value={termino} onChange={(evento) => alCambiarTermino(evento.target.value)} />
+            <Form.Control
+              ref={referenciaBuscador}
+              type="search"
+              value={termino}
+              onChange={(evento) => alCambiarTermino(evento.target.value)}
+            />
           </Form.Group>
         </Col>
         <Col xs={12} md={3}>
