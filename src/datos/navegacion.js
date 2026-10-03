@@ -6,8 +6,15 @@ export const enlacesNavbar = [
 ]
 
 export const accionesNavbar = [
-  { etiqueta: 'Comprar entradas', ruta: RUTA_PELICULAS, variante: 'marca' },
-  { etiqueta: 'Buscar', ruta: RUTA_PELICULAS, variante: 'outline-light', tamano: 'sm', etiquetaAccesible: 'Buscar película' },
+  { etiqueta: 'Comprar entradas', ruta: RUTA_PELICULAS, variante: 'marca', icono: 'entrada' },
+  {
+    etiqueta: 'Buscar',
+    ruta: RUTA_PELICULAS,
+    variante: 'outline-light',
+    tamano: 'sm',
+    icono: 'lupa',
+    etiquetaAccesible: 'Buscar película',
+  },
 ]
 
 export const columnasFooter = [

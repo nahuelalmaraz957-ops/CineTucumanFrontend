@@ -1,5 +1,7 @@
 import { Link, NavLink } from 'react-router-dom'
 import { Button, Container, Nav, Navbar as NavbarBootstrap } from 'react-bootstrap'
+import Icono from '../comunes/Icono.jsx'
+import pochoclinMini from '../../assets/imagenes/marca/pochoclin-mini.png'
 import { accionesNavbar, enlacesNavbar } from '../../datos/navegacion.js'
 import { RUTA_INICIO } from '../../datos/rutas.js'
 import '../../estilos/Navbar.css'
@@ -9,7 +11,13 @@ const Navbar = () => {
     <header className="encabezado-sitio sticky-top">
       <NavbarBootstrap expand="lg" variant="dark" aria-label="Navegación principal">
         <Container>
-          <NavbarBootstrap.Brand as={Link} to={RUTA_INICIO} aria-label="Cine Tucumán - Inicio">
+          <NavbarBootstrap.Brand
+            as={Link}
+            to={RUTA_INICIO}
+            aria-label="Cine Tucumán - Inicio"
+            className="d-flex align-items-center gap-2"
+          >
+            <img src={pochoclinMini} alt="" width="40" height="40" />
             Cine Tucumán
           </NavbarBootstrap.Brand>
           <NavbarBootstrap.Toggle aria-controls="navbarMain" aria-label="Abrir menú de navegación" />
@@ -31,7 +39,7 @@ const Navbar = () => {
                   size={accion.tamano}
                   aria-label={accion.etiquetaAccesible}
                 >
-                  {accion.etiqueta}
+                  <Icono nombre={accion.icono} tamano={18} /> {accion.etiqueta}
                 </Button>
               ))}
             </div>
