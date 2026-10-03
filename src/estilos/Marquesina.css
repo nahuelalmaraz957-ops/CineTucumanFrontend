@@ -1,0 +1,25 @@
+.marco-marquesina {
+  position: relative;
+  border: 3px solid var(--bs-secondary);
+  border-radius: .875rem;
+  background-color: var(--bs-secondary-bg);
+}
+
+.marco-marquesina::before,
+.marco-marquesina::after {
+  content: "";
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  height: 16px;
+  background: radial-gradient(circle, #FFE9A8 38%, transparent 43%) 0 0 / 28px 16px;
+  filter: drop-shadow(0 0 5px var(--bs-secondary));
+}
+
+.marco-marquesina::before {
+  top: -9px;
+}
+
+.marco-marquesina::after {
+  bottom: -9px;
+}

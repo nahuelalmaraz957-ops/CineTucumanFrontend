@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom'
 import { Badge, Button, Card, Ratio } from 'react-bootstrap'
 import Icono from '../comunes/Icono.jsx'
-import { RUTA_PELICULAS } from '../../datos/rutas.js'
+import { ESTADO_EN_CARTELERA } from '../../datos/estados.js'
+import { rutaFunciones } from '../../datos/rutas.js'
 import {
   TEXTO_POR_CONFIRMAR,
   formatearDuracion,
@@ -9,11 +10,12 @@ import {
   formatearFechaLarga,
   obtenerVarianteEstado,
 } from '../../utilidades/formatos.js'
+import { tieneFichaCompleta } from '../../utilidades/peliculas.js'
 import '../../estilos/TarjetaEntrada.css'
 
 const TarjetaPelicula = ({ pelicula, tieneBoton = true }) => {
-  const estaEnCartelera = pelicula.estado === 'en-cartelera'
-  const tieneFicha = pelicula.generos !== undefined
+  const estaEnCartelera = pelicula.estado === ESTADO_EN_CARTELERA
+  const tieneFicha = tieneFichaCompleta(pelicula)
 
   return (
     <Card className="tarjeta-interactiva tarjeta-entrada h-100">
@@ -47,7 +49,7 @@ const TarjetaPelicula = ({ pelicula, tieneBoton = true }) => {
           </Card.Text>
         )}
         {estaEnCartelera && tieneBoton && (
-          <Button as={Link} to={RUTA_PELICULAS} variant="marca" className="mt-auto">
+          <Button as={Link} to={rutaFunciones(pelicula.id)} variant="marca" className="mt-auto">
             Ver funciones
           </Button>
         )}

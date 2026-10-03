@@ -1,0 +1,5 @@
+export const ESTADO_EN_CARTELERA = 'en-cartelera'
+export const ESTADO_PROXIMAMENTE = 'proximamente'
+export const ESTADO_FUNCION_DISPONIBLE = 'disponible'
+export const ESTADO_FUNCION_POCOS_LUGARES = 'pocos-lugares'
+export const ESTADO_FUNCION_AGOTADA = 'agotada'
