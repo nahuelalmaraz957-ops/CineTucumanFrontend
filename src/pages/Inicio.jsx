@@ -6,7 +6,7 @@ import Seo from '../components/seo/Seo.jsx'
 import TarjetaSucursal from '../components/sucursales/TarjetaSucursal.jsx'
 import { cartelera } from '../datos/cartelera.js'
 import { ESTADO_EN_CARTELERA, ESTADO_PROXIMAMENTE } from '../datos/estados.js'
-import { RUTA_FUNCIONES, RUTA_PELICULAS } from '../datos/rutas.js'
+import { RUTA_PELICULAS } from '../datos/rutas.js'
 import { sucursales } from '../datos/sucursales.js'
 
 const destacadas = cartelera.filter((pelicula) => pelicula.destacada && pelicula.estado === ESTADO_EN_CARTELERA)
@@ -74,11 +74,8 @@ const Inicio = () => {
           <h2 id="titulo-llamado-final">¿Listo para ir al cine?</h2>
           <p className="lead mb-4">Descubrí las películas disponibles y elegí tu próxima función.</p>
           <div className="d-flex flex-column flex-sm-row justify-content-center gap-3">
-            <Button as={Link} to={RUTA_FUNCIONES} variant="marca" size="lg">
+            <Button as={Link} to={RUTA_PELICULAS} variant="marca" size="lg">
               Comprar entradas
-            </Button>
-            <Button as={Link} to={RUTA_PELICULAS} variant="outline-light" size="lg">
-              Ver cartelera
             </Button>
           </div>
         </Container>

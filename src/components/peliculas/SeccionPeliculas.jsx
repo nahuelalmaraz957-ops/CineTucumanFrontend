@@ -10,7 +10,7 @@ const SeccionPeliculas = ({ idTitulo, titulo, peliculas }) => {
       <h2 id={idTitulo} className="mb-3">
         {titulo}
       </h2>
-      <GrillaPeliculas peliculas={peliculas} columnas={COLUMNAS_LISTADO} tieneBoton={false} />
+      <GrillaPeliculas peliculas={peliculas} columnas={COLUMNAS_LISTADO} />
     </section>
   )
 }

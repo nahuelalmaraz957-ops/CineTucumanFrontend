@@ -11,8 +11,11 @@ const SALTO_DE_REPARTO = 7
 
 const calcularSemilla = (texto) => [...texto].reduce((suma, caracter) => suma + caracter.charCodeAt(0), 0)
 
+const compararPorFechaYHorario = (primera, segunda) =>
+  `${primera.fecha} ${primera.horario}`.localeCompare(`${segunda.fecha} ${segunda.horario}`)
+
 export const obtenerFunciones = (idPelicula) =>
-  idPelicula ? funciones.filter((funcion) => funcion.peliculaId === idPelicula) : funciones
+  funciones.filter((funcion) => funcion.peliculaId === idPelicula).sort(compararPorFechaYHorario)
 
 export const obtenerFuncion = (idFuncion) => funciones.find((funcion) => funcion.id === idFuncion)
 
