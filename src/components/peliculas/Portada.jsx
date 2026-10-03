@@ -6,6 +6,7 @@ import { detallesPeliculas } from '../../datos/detallesPeliculas.js'
 import { ID_PELICULA_PORTADA, peliculas } from '../../datos/peliculas.js'
 import { RUTA_PELICULAS } from '../../datos/rutas.js'
 import { formatearDuracion, formatearEstado, obtenerVarianteEstado } from '../../utilidades/formatos.js'
+import '../../estilos/Marquesina.css'
 import '../../estilos/Portada.css'
 
 const Portada = () => {
@@ -15,7 +16,7 @@ const Portada = () => {
   return (
     <section className="py-5" aria-labelledby="titulo-portada">
       <Container>
-        <div className="portada-marco p-4 p-lg-5">
+        <div className="marco-marquesina p-4 p-lg-5">
           <Row className="align-items-center g-4 g-lg-5">
             <Col xs={12} md={5} lg={4}>
               <Ratio aspectRatio="2x3">
