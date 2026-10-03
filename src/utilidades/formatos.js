@@ -1,4 +1,9 @@
-import { ESTADO_EN_CARTELERA, ESTADO_PROXIMAMENTE } from '../datos/estados.js'
+import {
+  ESTADO_EN_CARTELERA,
+  ESTADO_FUNCION_AGOTADA,
+  ESTADO_FUNCION_POCOS_LUGARES,
+  ESTADO_PROXIMAMENTE,
+} from '../datos/estados.js'
 
 const FORMATO_FECHA_LARGA = new Intl.DateTimeFormat('es-AR', {
   day: 'numeric',
@@ -24,6 +29,18 @@ const FORMATO_FECHA_CON_DIA = new Intl.DateTimeFormat('es-AR', {
   timeZone: 'UTC',
 })
 
+const FORMATO_FECHA_CORTA = new Intl.DateTimeFormat('es-AR', {
+  weekday: 'short',
+  day: 'numeric',
+  month: 'numeric',
+  timeZone: 'UTC',
+})
+
+const ETIQUETAS_ESTADO_FUNCION = {
+  [ESTADO_FUNCION_POCOS_LUGARES]: 'Pocos lugares',
+  [ESTADO_FUNCION_AGOTADA]: 'Agotada',
+}
+
 const FORMATO_MONEDA = new Intl.NumberFormat('es-AR', {
   style: 'currency',
   currency: 'ARS',
@@ -43,3 +60,7 @@ export const obtenerVarianteEstado = (estado) => VARIANTES_ESTADO[estado]
 export const formatearFechaConDia = (fechaIso) => FORMATO_FECHA_CON_DIA.format(new Date(`${fechaIso}T00:00:00Z`))
 
 export const formatearMoneda = (monto) => FORMATO_MONEDA.format(monto)
+
+export const formatearFechaCorta = (fechaIso) => FORMATO_FECHA_CORTA.format(new Date(`${fechaIso}T00:00:00Z`))
+
+export const formatearEstadoFuncion = (estado) => ETIQUETAS_ESTADO_FUNCION[estado]

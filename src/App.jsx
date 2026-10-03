@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import Layout from './components/layout/Layout.jsx'
-import { RUTA_BUTACAS, RUTA_CARRITO, RUTA_PELICULAS } from './datos/rutas.js'
+import { RUTA_BUTACAS, RUTA_CARRITO, RUTA_FUNCIONES, RUTA_PELICULAS } from './datos/rutas.js'
 import Butacas from './pages/Butacas.jsx'
 import Carrito from './pages/Carrito.jsx'
+import Funciones from './pages/Funciones.jsx'
 import Inicio from './pages/Inicio.jsx'
 import NoEncontrada from './pages/NoEncontrada.jsx'
 import Peliculas from './pages/Peliculas.jsx'
@@ -35,6 +36,7 @@ const App = () => {
     <Routes>
       <Route element={<Layout cantidadEnCarrito={contarEntradas(carrito)} />}>
         <Route index element={<Inicio />} />
+        <Route path={RUTA_FUNCIONES} element={<Funciones />} />
         <Route path={RUTA_PELICULAS} element={<Peliculas />} />
         <Route path={`${RUTA_BUTACAS}/:idFuncion`} element={<Butacas alAgregarEntrada={agregarEntrada} />} />
         <Route
