@@ -1,13 +1,13 @@
 import { useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
-import { Button, Container, Nav, Navbar as NavbarBootstrap } from 'react-bootstrap'
+import { Badge, Button, Container, Nav, Navbar as NavbarBootstrap } from 'react-bootstrap'
 import Icono from '../comunes/Icono.jsx'
 import pochoclinMini from '../../assets/imagenes/marca/pochoclin-mini.png'
 import { accionesNavbar, enlacesNavbar } from '../../datos/navegacion.js'
-import { RUTA_INICIO } from '../../datos/rutas.js'
+import { RUTA_CARRITO, RUTA_INICIO } from '../../datos/rutas.js'
 import '../../estilos/Navbar.css'
 
-const Navbar = () => {
+const Navbar = ({ cantidadEnCarrito }) => {
   const [menuAbierto, setMenuAbierto] = useState(false)
 
   const cerrarMenu = () => setMenuAbierto(false)
@@ -61,6 +61,21 @@ const Navbar = () => {
                   <Icono nombre={accion.icono} tamano={18} /> {accion.etiqueta}
                 </Button>
               ))}
+              <Button
+                as={Link}
+                to={RUTA_CARRITO}
+                variant="outline-light"
+                size="sm"
+                aria-label={`Carrito, ${cantidadEnCarrito} entradas`}
+                onClick={cerrarMenu}
+              >
+                <Icono nombre="carrito" tamano={18} /> Carrito
+                {cantidadEnCarrito > 0 && (
+                  <Badge bg="primary" pill className="ms-2">
+                    {cantidadEnCarrito}
+                  </Badge>
+                )}
+              </Button>
             </div>
           </NavbarBootstrap.Collapse>
         </Container>
