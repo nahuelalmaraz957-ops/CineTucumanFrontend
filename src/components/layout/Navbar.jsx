@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import { Button, Container, Nav, Navbar as NavbarBootstrap } from 'react-bootstrap'
 import Icono from '../comunes/Icono.jsx'
@@ -7,15 +8,26 @@ import { RUTA_INICIO } from '../../datos/rutas.js'
 import '../../estilos/Navbar.css'
 
 const Navbar = () => {
+  const [menuAbierto, setMenuAbierto] = useState(false)
+
+  const cerrarMenu = () => setMenuAbierto(false)
+
   return (
     <header className="encabezado-sitio sticky-top">
-      <NavbarBootstrap expand="lg" variant="dark" aria-label="Navegación principal">
+      <NavbarBootstrap
+        expand="lg"
+        variant="dark"
+        expanded={menuAbierto}
+        onToggle={setMenuAbierto}
+        aria-label="Navegación principal"
+      >
         <Container>
           <NavbarBootstrap.Brand
             as={Link}
             to={RUTA_INICIO}
             aria-label="Cine Tucumán - Inicio"
             className="d-flex align-items-center gap-2"
+            onClick={cerrarMenu}
           >
             <img src={pochoclinMini} alt="" width="40" height="40" />
             Cine Tucumán
@@ -24,7 +36,13 @@ const Navbar = () => {
           <NavbarBootstrap.Collapse id="navbarMain">
             <Nav className="me-lg-auto mb-2 mb-lg-0">
               {enlacesNavbar.map((enlace) => (
-                <Nav.Link key={enlace.ruta} as={NavLink} to={enlace.ruta} end={enlace.ruta === RUTA_INICIO}>
+                <Nav.Link
+                  key={enlace.ruta}
+                  as={NavLink}
+                  to={enlace.ruta}
+                  end={enlace.ruta === RUTA_INICIO}
+                  onClick={cerrarMenu}
+                >
                   {enlace.etiqueta}
                 </Nav.Link>
               ))}
@@ -38,6 +56,7 @@ const Navbar = () => {
                   variant={accion.variante}
                   size={accion.tamano}
                   aria-label={accion.etiquetaAccesible}
+                  onClick={cerrarMenu}
                 >
                   <Icono nombre={accion.icono} tamano={18} /> {accion.etiqueta}
                 </Button>
