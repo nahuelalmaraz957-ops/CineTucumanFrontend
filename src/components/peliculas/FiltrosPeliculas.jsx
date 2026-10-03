@@ -1,4 +1,5 @@
 import { Col, Form, Row } from 'react-bootstrap'
+import { ESTADO_EN_CARTELERA, ESTADO_PROXIMAMENTE } from '../../datos/estados.js'
 
 const FiltrosPeliculas = ({ termino, estado, referenciaBuscador, alCambiarTermino, alCambiarEstado }) => {
   return (
@@ -20,8 +21,8 @@ const FiltrosPeliculas = ({ termino, estado, referenciaBuscador, alCambiarTermin
             <Form.Label>Estado</Form.Label>
             <Form.Select value={estado} onChange={(evento) => alCambiarEstado(evento.target.value)}>
               <option value="">Todas</option>
-              <option value="en-cartelera">En cartelera</option>
-              <option value="proximamente">Próximamente</option>
+              <option value={ESTADO_EN_CARTELERA}>En cartelera</option>
+              <option value={ESTADO_PROXIMAMENTE}>Próximamente</option>
             </Form.Select>
           </Form.Group>
         </Col>

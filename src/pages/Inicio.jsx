@@ -5,12 +5,15 @@ import Portada from '../components/peliculas/Portada.jsx'
 import Seo from '../components/seo/Seo.jsx'
 import TarjetaSucursal from '../components/sucursales/TarjetaSucursal.jsx'
 import { peliculas } from '../datos/peliculas.js'
+import { ESTADO_EN_CARTELERA, ESTADO_PROXIMAMENTE } from '../datos/estados.js'
 import { RUTA_PELICULAS } from '../datos/rutas.js'
 import { sucursales } from '../datos/sucursales.js'
 
-const destacadas = peliculas.filter((pelicula) => pelicula.destacada && pelicula.estado === 'en-cartelera')
-const proximamente = peliculas.filter((pelicula) => pelicula.estado === 'proximamente' && pelicula.fechaEstreno)
-const proximosEstrenos = peliculas.filter((pelicula) => pelicula.estado === 'proximamente' && !pelicula.fechaEstreno)
+const destacadas = peliculas.filter((pelicula) => pelicula.destacada && pelicula.estado === ESTADO_EN_CARTELERA)
+const proximamente = peliculas.filter((pelicula) => pelicula.estado === ESTADO_PROXIMAMENTE && pelicula.fechaEstreno)
+const proximosEstrenos = peliculas.filter(
+  (pelicula) => pelicula.estado === ESTADO_PROXIMAMENTE && !pelicula.fechaEstreno,
+)
 const sucursalesDestacadas = sucursales.filter((sucursal) => sucursal.destacada)
 
 const Inicio = () => {

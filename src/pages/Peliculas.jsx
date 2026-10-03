@@ -5,6 +5,7 @@ import FiltrosPeliculas from '../components/peliculas/FiltrosPeliculas.jsx'
 import SeccionPeliculas from '../components/peliculas/SeccionPeliculas.jsx'
 import Seo from '../components/seo/Seo.jsx'
 import { peliculas } from '../datos/peliculas.js'
+import { ESTADO_EN_CARTELERA, ESTADO_PROXIMAMENTE } from '../datos/estados.js'
 import { HASH_BUSCADOR } from '../datos/rutas.js'
 import { normalizarTexto } from '../utilidades/busqueda.js'
 
@@ -25,8 +26,8 @@ const Peliculas = () => {
     (pelicula) =>
       (estado === '' || pelicula.estado === estado) && normalizarTexto(pelicula.titulo).includes(terminoNormalizado),
   )
-  const enCartelera = resultados.filter((pelicula) => pelicula.estado === 'en-cartelera')
-  const proximamente = resultados.filter((pelicula) => pelicula.estado === 'proximamente')
+  const enCartelera = resultados.filter((pelicula) => pelicula.estado === ESTADO_EN_CARTELERA)
+  const proximamente = resultados.filter((pelicula) => pelicula.estado === ESTADO_PROXIMAMENTE)
 
   return (
     <Container className="py-4">
