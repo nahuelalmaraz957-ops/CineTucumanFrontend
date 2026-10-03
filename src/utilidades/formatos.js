@@ -1,3 +1,5 @@
+import { ESTADO_EN_CARTELERA, ESTADO_PROXIMAMENTE } from '../datos/estados.js'
+
 const FORMATO_FECHA_LARGA = new Intl.DateTimeFormat('es-AR', {
   day: 'numeric',
   month: 'long',
@@ -6,13 +8,13 @@ const FORMATO_FECHA_LARGA = new Intl.DateTimeFormat('es-AR', {
 })
 
 const ETIQUETAS_ESTADO = {
-  'en-cartelera': 'En cartelera',
-  proximamente: 'Próximamente',
+  [ESTADO_EN_CARTELERA]: 'En cartelera',
+  [ESTADO_PROXIMAMENTE]: 'Próximamente',
 }
 
 const VARIANTES_ESTADO = {
-  'en-cartelera': 'primary',
-  proximamente: 'secondary',
+  [ESTADO_EN_CARTELERA]: 'primary',
+  [ESTADO_PROXIMAMENTE]: 'secondary',
 }
 
 export const TEXTO_POR_CONFIRMAR = 'Por confirmar'

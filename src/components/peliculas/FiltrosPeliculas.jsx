@@ -1,8 +1,17 @@
-import { Col, Form, Row } from 'react-bootstrap'
+import { Button, Col, Form, Row } from 'react-bootstrap'
+import { ESTADO_EN_CARTELERA, ESTADO_PROXIMAMENTE } from '../../datos/estados.js'
 
-const FiltrosPeliculas = ({ termino, estado, referenciaBuscador, alCambiarTermino, alCambiarEstado }) => {
+const FiltrosPeliculas = ({
+  termino,
+  estado,
+  referenciaBuscador,
+  tieneFiltros,
+  alCambiarTermino,
+  alCambiarEstado,
+  alLimpiar,
+}) => {
   return (
-    <Form className="mb-5" role="search" onSubmit={(evento) => evento.preventDefault()}>
+    <Form className="mb-3" role="search" onSubmit={(evento) => evento.preventDefault()}>
       <Row className="g-3 align-items-end">
         <Col xs={12} md={6}>
           <Form.Group controlId="buscador-peliculas">
@@ -20,11 +29,18 @@ const FiltrosPeliculas = ({ termino, estado, referenciaBuscador, alCambiarTermin
             <Form.Label>Estado</Form.Label>
             <Form.Select value={estado} onChange={(evento) => alCambiarEstado(evento.target.value)}>
               <option value="">Todas</option>
-              <option value="en-cartelera">En cartelera</option>
-              <option value="proximamente">Próximamente</option>
+              <option value={ESTADO_EN_CARTELERA}>En cartelera</option>
+              <option value={ESTADO_PROXIMAMENTE}>Próximamente</option>
             </Form.Select>
           </Form.Group>
         </Col>
+        {tieneFiltros && (
+          <Col xs={12} md="auto">
+            <Button type="button" variant="outline-light" onClick={alLimpiar}>
+              Limpiar filtros
+            </Button>
+          </Col>
+        )}
       </Row>
     </Form>
   )
