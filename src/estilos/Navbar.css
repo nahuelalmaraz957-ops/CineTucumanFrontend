@@ -1,5 +1,8 @@
 .encabezado-sitio .navbar {
+  --bs-navbar-active-color: var(--bs-secondary);
+  --bs-navbar-hover-color: var(--bs-secondary);
   background-color: var(--bs-secondary-bg);
+  border-bottom: 3px solid var(--bs-secondary);
 }
 
 .encabezado-sitio .navbar-brand {
