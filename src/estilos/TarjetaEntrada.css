@@ -1,0 +1,30 @@
+.tarjeta-entrada {
+  --bs-card-bg: var(--bs-body-color);
+  --bs-card-color: var(--bs-body-bg);
+  --bs-card-border-width: 0;
+  overflow: hidden;
+}
+
+.tarjeta-entrada-perforacion {
+  position: relative;
+  border-top: 3px dashed var(--bs-body-bg);
+}
+
+.tarjeta-entrada-perforacion::before,
+.tarjeta-entrada-perforacion::after {
+  content: "";
+  position: absolute;
+  top: -14px;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background-color: var(--bs-body-bg);
+}
+
+.tarjeta-entrada-perforacion::before {
+  left: -13px;
+}
+
+.tarjeta-entrada-perforacion::after {
+  right: -13px;
+}
