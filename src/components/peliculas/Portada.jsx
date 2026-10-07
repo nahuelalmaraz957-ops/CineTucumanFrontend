@@ -2,17 +2,16 @@ import { Link } from 'react-router-dom'
 import { Badge, Button, Col, Container, Ratio, Row } from 'react-bootstrap'
 import Icono from '../comunes/Icono.jsx'
 import pochoclin from '../../assets/imagenes/marca/pochoclin.png'
-import { detallesPeliculas } from '../../datos/detallesPeliculas.js'
-import { cartelera } from '../../datos/cartelera.js'
 import { ID_PELICULA_PORTADA } from '../../datos/peliculas.js'
 import { rutaFunciones } from '../../datos/rutas.js'
+import { obtenerDetalle, obtenerPelicula } from '../../servicios/peliculas.js'
 import { formatearDuracion, formatearEstado, obtenerVarianteEstado } from '../../utilidades/formatos.js'
 import '../../estilos/Marquesina.css'
 import '../../estilos/Portada.css'
 
 const Portada = () => {
-  const pelicula = cartelera.find((item) => item.id === ID_PELICULA_PORTADA)
-  const detalle = detallesPeliculas[ID_PELICULA_PORTADA]
+  const pelicula = obtenerPelicula(ID_PELICULA_PORTADA)
+  const detalle = obtenerDetalle(ID_PELICULA_PORTADA)
 
   return (
     <section className="py-5" aria-labelledby="titulo-portada">

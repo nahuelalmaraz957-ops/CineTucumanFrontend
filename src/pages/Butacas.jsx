@@ -5,10 +5,10 @@ import MapaButacas from '../components/butacas/MapaButacas.jsx'
 import ResumenButacas from '../components/butacas/ResumenButacas.jsx'
 import Seo from '../components/seo/Seo.jsx'
 import { MAXIMO_BUTACAS } from '../datos/butacas.js'
-import { cartelera } from '../datos/cartelera.js'
 import { ESTADO_FUNCION_AGOTADA } from '../datos/estados.js'
 import { RUTA_CARRITO, RUTA_PELICULAS } from '../datos/rutas.js'
 import { obtenerButacasOcupadas, obtenerFuncion } from '../servicios/funciones.js'
+import { obtenerPelicula } from '../servicios/peliculas.js'
 import { TIPO_ENTRADA } from '../utilidades/carrito.js'
 import { obtenerFechaDeHoy, obtenerHoraActual } from '../utilidades/fechas.js'
 import { yaEmpezo } from '../utilidades/funciones.js'
@@ -22,7 +22,7 @@ const Butacas = ({ alAgregarEntrada }) => {
 
   if (funcion === undefined) return <NoEncontrada />
 
-  const pelicula = cartelera.find((elemento) => elemento.id === funcion.peliculaId)
+  const pelicula = obtenerPelicula(funcion.peliculaId)
   const ocupadas = obtenerButacasOcupadas(funcion.id)
   const alcanzoMaximo = seleccionadas.length === MAXIMO_BUTACAS
   const haEmpezado = yaEmpezo(funcion, obtenerFechaDeHoy(), obtenerHoraActual())

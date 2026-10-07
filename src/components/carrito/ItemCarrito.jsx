@@ -1,11 +1,11 @@
 import { Badge, Button, Card } from 'react-bootstrap'
-import { cartelera } from '../../datos/cartelera.js'
 import { obtenerFuncion } from '../../servicios/funciones.js'
+import { obtenerPelicula } from '../../servicios/peliculas.js'
 import { formatearFechaConDia, formatearMoneda } from '../../utilidades/formatos.js'
 
 const ItemCarrito = ({ item, alQuitar }) => {
   const funcion = obtenerFuncion(item.idFuncion)
-  const pelicula = cartelera.find((elemento) => elemento.id === funcion.peliculaId)
+  const pelicula = obtenerPelicula(funcion.peliculaId)
 
   return (
     <Card className="mb-3">

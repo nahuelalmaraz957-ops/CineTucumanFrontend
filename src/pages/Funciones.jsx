@@ -4,17 +4,17 @@ import { Button, Col, Container, Row } from 'react-bootstrap'
 import FiltrosFunciones from '../components/funciones/FiltrosFunciones.jsx'
 import TarjetaFuncion from '../components/funciones/TarjetaFuncion.jsx'
 import Seo from '../components/seo/Seo.jsx'
-import { cartelera } from '../datos/cartelera.js'
 import { FORMATO_TODOS } from '../datos/filtros.js'
 import { RUTA_PELICULAS } from '../datos/rutas.js'
 import { obtenerFunciones } from '../servicios/funciones.js'
+import { obtenerPelicula } from '../servicios/peliculas.js'
 import { obtenerFechaDeHoy, obtenerHoraActual } from '../utilidades/fechas.js'
 import { yaEmpezo } from '../utilidades/funciones.js'
 
 const Funciones = () => {
   const [parametros] = useSearchParams()
   const idPelicula = parametros.get('pelicula')
-  const pelicula = cartelera.find((elemento) => elemento.id === idPelicula)
+  const pelicula = obtenerPelicula(idPelicula)
   const sinPelicula = pelicula === undefined
   const funcionesDePelicula = sinPelicula ? [] : obtenerFunciones(idPelicula)
   const fechas = [...new Set(funcionesDePelicula.map((funcion) => funcion.fecha))]
