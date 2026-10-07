@@ -3,7 +3,7 @@ import { Badge, Button, Col, Container, Ratio, Row } from 'react-bootstrap'
 import Icono from '../comunes/Icono.jsx'
 import pochoclin from '../../assets/imagenes/marca/pochoclin.png'
 import { ID_PELICULA_PORTADA } from '../../datos/peliculas.js'
-import { rutaFunciones } from '../../datos/rutas.js'
+import { rutaDetalle, rutaFunciones } from '../../datos/rutas.js'
 import { obtenerDetalle, obtenerPelicula } from '../../servicios/peliculas.js'
 import { formatearDuracion, formatearEstado, obtenerVarianteEstado } from '../../utilidades/formatos.js'
 import '../../estilos/Marquesina.css'
@@ -40,6 +40,9 @@ const Portada = () => {
                 <div className="d-flex flex-column flex-sm-row gap-3 mt-4">
                   <Button as={Link} to={rutaFunciones(pelicula.id)} variant="marca" size="lg">
                     Ver funciones
+                  </Button>
+                  <Button as={Link} to={rutaDetalle(pelicula.id)} variant="outline-light" size="lg">
+                    Más información
                   </Button>
                 </div>
               </article>

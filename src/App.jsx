@@ -4,6 +4,7 @@ import Layout from './components/layout/Layout.jsx'
 import { RUTA_BUTACAS, RUTA_CARRITO, RUTA_FUNCIONES, RUTA_PELICULAS } from './datos/rutas.js'
 import Butacas from './pages/Butacas.jsx'
 import Carrito from './pages/Carrito.jsx'
+import DetallePelicula from './pages/DetallePelicula.jsx'
 import Funciones from './pages/Funciones.jsx'
 import Inicio from './pages/Inicio.jsx'
 import NoEncontrada from './pages/NoEncontrada.jsx'
@@ -50,6 +51,7 @@ const App = () => {
         <Route index element={<Inicio />} />
         <Route path={RUTA_FUNCIONES} element={<Funciones />} />
         <Route path={RUTA_PELICULAS} element={<Peliculas />} />
+        <Route path={`${RUTA_PELICULAS}/:idPelicula`} element={<DetallePelicula />} />
         <Route path={`${RUTA_BUTACAS}/:idFuncion`} element={<Butacas alAgregarEntrada={agregarEntrada} />} />
         <Route
           path={RUTA_CARRITO}

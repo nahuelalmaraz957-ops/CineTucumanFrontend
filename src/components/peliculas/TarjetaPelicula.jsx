@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import { Badge, Button, Card, Ratio } from 'react-bootstrap'
 import Icono from '../comunes/Icono.jsx'
 import { ESTADO_EN_CARTELERA } from '../../datos/estados.js'
-import { rutaFunciones } from '../../datos/rutas.js'
+import { rutaDetalle, rutaFunciones } from '../../datos/rutas.js'
 import {
   TEXTO_POR_CONFIRMAR,
   formatearDuracion,
@@ -19,16 +19,20 @@ const TarjetaPelicula = ({ pelicula, tieneBoton = true }) => {
 
   return (
     <Card className="tarjeta-interactiva tarjeta-entrada h-100">
-      <Ratio aspectRatio="2x3">
-        <Card.Img variant="top" src={pelicula.poster} alt={`Póster de ${pelicula.titulo}`} />
-      </Ratio>
+      <Link to={rutaDetalle(pelicula.id)} tabIndex={-1} aria-hidden="true">
+        <Ratio aspectRatio="2x3">
+          <Card.Img variant="top" src={pelicula.poster} alt={`Póster de ${pelicula.titulo}`} />
+        </Ratio>
+      </Link>
       <div className="tarjeta-entrada-perforacion" />
       <Card.Body className="d-flex flex-column">
         <Badge bg={obtenerVarianteEstado(pelicula.estado)} className="align-self-start mb-2">
           {formatearEstado(pelicula.estado)}
         </Badge>
         <Card.Title as="h3" className="h5">
-          {pelicula.titulo}
+          <Link to={rutaDetalle(pelicula.id)} className="text-reset text-decoration-none">
+            {pelicula.titulo}
+          </Link>
         </Card.Title>
         {estaEnCartelera && tieneFicha && (
           <>
