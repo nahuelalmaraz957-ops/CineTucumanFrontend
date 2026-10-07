@@ -1,31 +1,31 @@
 import { useState } from 'react'
-import { Link, NavLink, useMatch } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 import { Badge, Button, Container, Nav, Navbar as NavbarBootstrap } from 'react-bootstrap'
 import Icono from '../comunes/Icono.jsx'
 import pochoclinMini from '../../assets/imagenes/marca/pochoclin-mini.png'
+import { AVISO_CAMBIAR_FUNCION, AVISO_ELEGIR_PELICULA } from '../../datos/avisos.js'
 import { accionesNavbar, enlacesNavbar } from '../../datos/navegacion.js'
-import { RUTA_CARRITO, RUTA_INICIO, RUTA_PELICULAS, rutaFunciones } from '../../datos/rutas.js'
+import { RUTA_CARRITO, RUTA_INICIO, rutaFunciones } from '../../datos/rutas.js'
 import '../../estilos/Navbar.css'
 
-const Navbar = ({ cantidadEnCarrito, alComprar }) => {
+const Navbar = ({ cantidadEnCarrito, idPeliculaEnJuego, butacasElegidas, alComprar }) => {
   const [menuAbierto, setMenuAbierto] = useState(false)
-  const coincidenciaDetalle = useMatch(`${RUTA_PELICULAS}/:idPelicula`)
 
   const cerrarMenu = () => setMenuAbierto(false)
+
+  const abrirAvisoDeCompra = (tipo) => () => {
+    cerrarMenu()
+    alComprar(tipo)
+  }
 
   const obtenerPropsAccion = (accion) => {
     if (!accion.esCompra) return { as: Link, to: accion.ruta, onClick: cerrarMenu }
 
-    if (coincidenciaDetalle) {
-      return { as: Link, to: rutaFunciones(coincidenciaDetalle.params.idPelicula), onClick: cerrarMenu }
-    }
+    if (!idPeliculaEnJuego) return { onClick: abrirAvisoDeCompra(AVISO_ELEGIR_PELICULA) }
 
-    return {
-      onClick: () => {
-        cerrarMenu()
-        alComprar()
-      },
-    }
+    if (butacasElegidas > 0) return { onClick: abrirAvisoDeCompra(AVISO_CAMBIAR_FUNCION) }
+
+    return { as: Link, to: rutaFunciones(idPeliculaEnJuego), onClick: cerrarMenu }
   }
 
   return (

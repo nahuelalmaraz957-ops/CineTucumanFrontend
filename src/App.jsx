@@ -18,6 +18,7 @@ import {
   quitarItem,
   reemplazarEntrada,
 } from './utilidades/carrito.js'
+import { obtenerPeliculaDelCarrito } from './utilidades/compra.js'
 import { obtenerFechaDeHoy, obtenerHoraActual } from './utilidades/fechas.js'
 import { yaEmpezo } from './utilidades/funciones.js'
 
@@ -47,7 +48,14 @@ const App = () => {
 
   return (
     <Routes>
-      <Route element={<Layout cantidadEnCarrito={contarEntradas(carrito)} />}>
+      <Route
+        element={
+          <Layout
+            cantidadEnCarrito={contarEntradas(carrito)}
+            idPeliculaDelCarrito={obtenerPeliculaDelCarrito(carrito)}
+          />
+        }
+      >
         <Route index element={<Inicio />} />
         <Route path={RUTA_FUNCIONES} element={<Funciones />} />
         <Route path={RUTA_PELICULAS} element={<Peliculas />} />

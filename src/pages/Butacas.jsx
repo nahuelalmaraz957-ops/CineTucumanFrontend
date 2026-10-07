@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { Link, useNavigate, useParams } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { Link, useNavigate, useOutletContext, useParams } from 'react-router-dom'
 import { Col, Container, Row } from 'react-bootstrap'
 import MapaButacas from '../components/butacas/MapaButacas.jsx'
 import ResumenButacas from '../components/butacas/ResumenButacas.jsx'
@@ -17,6 +17,11 @@ import NoEncontrada from './NoEncontrada.jsx'
 const Butacas = ({ alAgregarEntrada }) => {
   const { idFuncion } = useParams()
   const navigate = useNavigate()
+  const { registrarButacas } = useOutletContext()
+
+  useEffect(() => {
+    return () => registrarButacas(0)
+  }, [registrarButacas])
   const [seleccionadas, setSeleccionadas] = useState([])
   const funcion = obtenerFuncion(idFuncion)
 
@@ -27,10 +32,14 @@ const Butacas = ({ alAgregarEntrada }) => {
   const alcanzoMaximo = seleccionadas.length === MAXIMO_BUTACAS
   const haEmpezado = yaEmpezo(funcion, obtenerFechaDeHoy(), obtenerHoraActual())
 
-  const alternarButaca = (codigo) =>
-    setSeleccionadas((actuales) =>
-      actuales.includes(codigo) ? actuales.filter((elegida) => elegida !== codigo) : [...actuales, codigo],
-    )
+  const alternarButaca = (codigo) => {
+    const nuevas = seleccionadas.includes(codigo)
+      ? seleccionadas.filter((elegida) => elegida !== codigo)
+      : [...seleccionadas, codigo]
+
+    setSeleccionadas(nuevas)
+    registrarButacas(nuevas.length)
+  }
 
   const agregarAlCarrito = () => {
     alAgregarEntrada({
