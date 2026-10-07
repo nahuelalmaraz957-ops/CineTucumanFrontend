@@ -1,11 +1,17 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Outlet, useLocation, useNavigationType } from 'react-router-dom'
+import AvisoElegirPelicula from './AvisoElegirPelicula.jsx'
 import Footer from './Footer.jsx'
 import Navbar from './Navbar.jsx'
 
 const Layout = ({ cantidadEnCarrito }) => {
   const ubicacion = useLocation()
   const tipoNavegacion = useNavigationType()
+  const [rutaDelAviso, setRutaDelAviso] = useState(null)
+  const mostrarAviso = rutaDelAviso === ubicacion.pathname
+
+  const abrirAviso = () => setRutaDelAviso(ubicacion.pathname)
+  const cerrarAviso = () => setRutaDelAviso(null)
 
   useEffect(() => {
     if (tipoNavegacion !== 'POP') {
@@ -15,11 +21,12 @@ const Layout = ({ cantidadEnCarrito }) => {
 
   return (
     <>
-      <Navbar cantidadEnCarrito={cantidadEnCarrito} />
+      <Navbar cantidadEnCarrito={cantidadEnCarrito} alComprar={abrirAviso} />
       <main key={ubicacion.pathname} className="pagina">
-        <Outlet />
+        <Outlet context={{ abrirAviso }} />
       </main>
       <Footer />
+      <AvisoElegirPelicula visible={mostrarAviso} alCerrar={cerrarAviso} />
     </>
   )
 }

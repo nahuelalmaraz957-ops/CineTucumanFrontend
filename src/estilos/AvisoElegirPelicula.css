@@ -1,0 +1,16 @@
+.aviso-imagen {
+  height: 230px;
+  width: auto;
+}
+
+.aviso-titulo {
+  font-family: "Anton", sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.045em;
+}
+
+@media (max-width: 575.98px) {
+  .aviso-imagen {
+    height: 190px;
+  }
+}
