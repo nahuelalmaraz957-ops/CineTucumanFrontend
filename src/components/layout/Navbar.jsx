@@ -5,13 +5,14 @@ import Icono from '../comunes/Icono.jsx'
 import pochoclinMini from '../../assets/imagenes/marca/pochoclin-mini.png'
 import { AVISO_CAMBIAR_FUNCION, AVISO_ELEGIR_PELICULA } from '../../datos/avisos.js'
 import { accionesNavbar, enlacesNavbar } from '../../datos/navegacion.js'
-import { RUTA_CARRITO, RUTA_INICIO, rutaFunciones } from '../../datos/rutas.js'
+import { RUTA_INICIO, rutaFunciones } from '../../datos/rutas.js'
 import '../../estilos/Navbar.css'
 
 const Navbar = ({ cantidadEnCarrito, idPeliculaEnJuego, butacasElegidas, alComprar }) => {
   const [menuAbierto, setMenuAbierto] = useState(false)
 
   const cerrarMenu = () => setMenuAbierto(false)
+  const etiquetaDelCarrito = `Carrito, ${cantidadEnCarrito} ${cantidadEnCarrito === 1 ? 'artículo' : 'artículos'}`
 
   const abrirAvisoDeCompra = (tipo) => () => {
     cerrarMenu()
@@ -19,6 +20,8 @@ const Navbar = ({ cantidadEnCarrito, idPeliculaEnJuego, butacasElegidas, alCompr
   }
 
   const obtenerPropsAccion = (accion) => {
+    if (accion.marcaPaginaActual) return { as: NavLink, to: accion.ruta, onClick: cerrarMenu }
+
     if (!accion.esCompra) return { as: Link, to: accion.ruta, onClick: cerrarMenu }
 
     if (!idPeliculaEnJuego) return { onClick: abrirAvisoDeCompra(AVISO_ELEGIR_PELICULA) }
@@ -31,7 +34,7 @@ const Navbar = ({ cantidadEnCarrito, idPeliculaEnJuego, butacasElegidas, alCompr
   return (
     <header className="encabezado-sitio sticky-top">
       <NavbarBootstrap
-        expand="lg"
+        expand="xl"
         variant="dark"
         expanded={menuAbierto}
         onToggle={setMenuAbierto}
@@ -50,7 +53,7 @@ const Navbar = ({ cantidadEnCarrito, idPeliculaEnJuego, butacasElegidas, alCompr
           </NavbarBootstrap.Brand>
           <NavbarBootstrap.Toggle aria-controls="navbarMain" aria-label="Abrir menú de navegación" />
           <NavbarBootstrap.Collapse id="navbarMain">
-            <Nav className="me-lg-auto mb-2 mb-lg-0">
+            <Nav className="me-xl-auto mb-2 mb-xl-0">
               {enlacesNavbar.map((enlace) => (
                 <Nav.Link
                   key={enlace.ruta}
@@ -63,33 +66,23 @@ const Navbar = ({ cantidadEnCarrito, idPeliculaEnJuego, butacasElegidas, alCompr
                 </Nav.Link>
               ))}
             </Nav>
-            <div className="d-flex flex-column flex-lg-row align-items-lg-center gap-2 gap-lg-3">
+            <div className="d-flex flex-column flex-xl-row align-items-xl-center gap-2 gap-xl-3">
               {accionesNavbar.map((accion) => (
                 <Button
                   key={accion.etiqueta}
                   {...obtenerPropsAccion(accion)}
                   variant={accion.variante}
                   size={accion.tamano}
-                  aria-label={accion.etiquetaAccesible}
+                  aria-label={accion.esCarrito ? etiquetaDelCarrito : accion.etiquetaAccesible}
                 >
                   <Icono nombre={accion.icono} tamano={18} /> {accion.etiqueta}
+                  {accion.esCarrito && cantidadEnCarrito > 0 && (
+                    <Badge bg="primary" pill className="ms-2">
+                      {cantidadEnCarrito}
+                    </Badge>
+                  )}
                 </Button>
               ))}
-              <Button
-                as={Link}
-                to={RUTA_CARRITO}
-                variant="outline-light"
-                size="sm"
-                aria-label={`Carrito, ${cantidadEnCarrito} ${cantidadEnCarrito === 1 ? 'artículo' : 'artículos'}`}
-                onClick={cerrarMenu}
-              >
-                <Icono nombre="carrito" tamano={18} /> Carrito
-                {cantidadEnCarrito > 0 && (
-                  <Badge bg="primary" pill className="ms-2">
-                    {cantidadEnCarrito}
-                  </Badge>
-                )}
-              </Button>
             </div>
           </NavbarBootstrap.Collapse>
         </Container>

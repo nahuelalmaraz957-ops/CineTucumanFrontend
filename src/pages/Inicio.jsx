@@ -7,15 +7,15 @@ import TarjetaSucursal from '../components/sucursales/TarjetaSucursal.jsx'
 import { AVISO_ELEGIR_PELICULA } from '../datos/avisos.js'
 import { cartelera } from '../datos/cartelera.js'
 import { ESTADO_EN_CARTELERA, ESTADO_PROXIMAMENTE } from '../datos/estados.js'
-import { rutaFunciones } from '../datos/rutas.js'
-import { sucursales } from '../datos/sucursales.js'
+import { RUTA_SUCURSALES, rutaFunciones } from '../datos/rutas.js'
+import { obtenerSucursalesDestacadas } from '../servicios/sucursales.js'
 
 const destacadas = cartelera.filter((pelicula) => pelicula.destacada && pelicula.estado === ESTADO_EN_CARTELERA)
 const proximamente = cartelera.filter((pelicula) => pelicula.estado === ESTADO_PROXIMAMENTE && pelicula.fechaEstreno)
 const proximosEstrenos = cartelera.filter(
   (pelicula) => pelicula.estado === ESTADO_PROXIMAMENTE && !pelicula.fechaEstreno,
 )
-const sucursalesDestacadas = sucursales.filter((sucursal) => sucursal.destacada)
+const sucursalesDestacadas = obtenerSucursalesDestacadas()
 
 const Inicio = () => {
   const { abrirAviso, idPeliculaEnJuego } = useOutletContext()
@@ -69,6 +69,11 @@ const Inicio = () => {
               </Col>
             ))}
           </Row>
+          <div className="text-center mt-4">
+            <Button as={Link} to={RUTA_SUCURSALES} variant="outline-light" size="lg">
+              Ver todas las sucursales
+            </Button>
+          </div>
         </Container>
       </section>
       <section className="py-5 text-center" aria-labelledby="titulo-llamado-final">
