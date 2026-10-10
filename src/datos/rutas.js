@@ -3,6 +3,7 @@ export const RUTA_PELICULAS = '/peliculas'
 export const RUTA_FUNCIONES = '/funciones'
 export const RUTA_CARRITO = '/carrito'
 export const RUTA_BUTACAS = '/butacas'
+export const RUTA_CANDYBAR = '/candybar'
 
 export const rutaFunciones = (idPelicula) => `${RUTA_FUNCIONES}?pelicula=${idPelicula}`
 

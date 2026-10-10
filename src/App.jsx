@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import Layout from './components/layout/Layout.jsx'
-import { RUTA_BUTACAS, RUTA_CARRITO, RUTA_FUNCIONES, RUTA_PELICULAS } from './datos/rutas.js'
+import { RUTA_BUTACAS, RUTA_CANDYBAR, RUTA_CARRITO, RUTA_FUNCIONES, RUTA_PELICULAS } from './datos/rutas.js'
 import Butacas from './pages/Butacas.jsx'
+import CandyBar from './pages/CandyBar.jsx'
 import Carrito from './pages/Carrito.jsx'
 import DetallePelicula from './pages/DetallePelicula.jsx'
 import Funciones from './pages/Funciones.jsx'
@@ -12,7 +13,8 @@ import Peliculas from './pages/Peliculas.jsx'
 import { obtenerFuncion } from './servicios/funciones.js'
 import {
   TIPO_ENTRADA,
-  contarEntradas,
+  agregarProducto,
+  contarArticulos,
   guardarCarrito,
   leerCarrito,
   quitarItem,
@@ -43,6 +45,7 @@ const App = () => {
   }, [carrito])
 
   const agregarEntrada = (entrada) => setCarrito((actual) => reemplazarEntrada(actual, entrada))
+  const agregarProductoAlCarrito = (producto) => setCarrito((actual) => agregarProducto(actual, producto))
   const quitarDelCarrito = (id) => setCarrito((actual) => quitarItem(actual, id))
   const vaciarCarrito = () => setCarrito([])
 
@@ -51,7 +54,7 @@ const App = () => {
       <Route
         element={
           <Layout
-            cantidadEnCarrito={contarEntradas(carrito)}
+            cantidadEnCarrito={contarArticulos(carrito)}
             idPeliculaDelCarrito={obtenerPeliculaDelCarrito(carrito)}
           />
         }
@@ -61,6 +64,10 @@ const App = () => {
         <Route path={RUTA_PELICULAS} element={<Peliculas />} />
         <Route path={`${RUTA_PELICULAS}/:idPelicula`} element={<DetallePelicula />} />
         <Route path={`${RUTA_BUTACAS}/:idFuncion`} element={<Butacas alAgregarEntrada={agregarEntrada} />} />
+        <Route
+          path={RUTA_CANDYBAR}
+          element={<CandyBar items={carrito} alAgregarProducto={agregarProductoAlCarrito} />}
+        />
         <Route
           path={RUTA_CARRITO}
           element={<Carrito items={carrito} alQuitar={quitarDelCarrito} alVaciar={vaciarCarrito} />}

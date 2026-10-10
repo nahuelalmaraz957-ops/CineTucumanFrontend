@@ -1,8 +1,9 @@
-import { RUTA_BUSCADOR, RUTA_INICIO, RUTA_PELICULAS } from './rutas.js'
+import { RUTA_BUSCADOR, RUTA_CANDYBAR, RUTA_INICIO, RUTA_PELICULAS } from './rutas.js'
 
 export const enlacesNavbar = [
   { etiqueta: 'Inicio', ruta: RUTA_INICIO },
   { etiqueta: 'Películas', ruta: RUTA_PELICULAS },
+  { etiqueta: 'Candy Bar', ruta: RUTA_CANDYBAR },
 ]
 
 export const accionesNavbar = [

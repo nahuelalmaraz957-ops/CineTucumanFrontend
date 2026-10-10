@@ -11,7 +11,7 @@ const ItemCarrito = ({ item, alQuitar }) => {
     <Card className="mb-3">
       <Card.Body className="d-flex flex-column flex-md-row justify-content-between gap-3">
         <div>
-          <Card.Title as="h2" className="h4">
+          <Card.Title as="h3" className="h4">
             {pelicula.titulo}
           </Card.Title>
           <Card.Text className="text-body-secondary mb-2">
