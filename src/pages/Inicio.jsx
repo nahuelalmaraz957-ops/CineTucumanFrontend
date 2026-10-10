@@ -8,14 +8,14 @@ import { AVISO_ELEGIR_PELICULA } from '../datos/avisos.js'
 import { cartelera } from '../datos/cartelera.js'
 import { ESTADO_EN_CARTELERA, ESTADO_PROXIMAMENTE } from '../datos/estados.js'
 import { rutaFunciones } from '../datos/rutas.js'
-import { sucursales } from '../datos/sucursales.js'
+import { obtenerSucursalesDestacadas } from '../servicios/sucursales.js'
 
 const destacadas = cartelera.filter((pelicula) => pelicula.destacada && pelicula.estado === ESTADO_EN_CARTELERA)
 const proximamente = cartelera.filter((pelicula) => pelicula.estado === ESTADO_PROXIMAMENTE && pelicula.fechaEstreno)
 const proximosEstrenos = cartelera.filter(
   (pelicula) => pelicula.estado === ESTADO_PROXIMAMENTE && !pelicula.fechaEstreno,
 )
-const sucursalesDestacadas = sucursales.filter((sucursal) => sucursal.destacada)
+const sucursalesDestacadas = obtenerSucursalesDestacadas()
 
 const Inicio = () => {
   const { abrirAviso, idPeliculaEnJuego } = useOutletContext()
