@@ -1,17 +1,17 @@
 import { Badge, Button, Card } from 'react-bootstrap'
-import { cartelera } from '../../datos/cartelera.js'
 import { obtenerFuncion } from '../../servicios/funciones.js'
+import { obtenerPelicula } from '../../servicios/peliculas.js'
 import { formatearFechaConDia, formatearMoneda } from '../../utilidades/formatos.js'
 
 const ItemCarrito = ({ item, alQuitar }) => {
   const funcion = obtenerFuncion(item.idFuncion)
-  const pelicula = cartelera.find((elemento) => elemento.id === funcion.peliculaId)
+  const pelicula = obtenerPelicula(funcion.peliculaId)
 
   return (
     <Card className="mb-3">
       <Card.Body className="d-flex flex-column flex-md-row justify-content-between gap-3">
         <div>
-          <Card.Title as="h2" className="h4">
+          <Card.Title as="h3" className="h4">
             {pelicula.titulo}
           </Card.Title>
           <Card.Text className="text-body-secondary mb-2">

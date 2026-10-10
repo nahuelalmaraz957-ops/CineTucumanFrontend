@@ -1,14 +1,14 @@
-import { useState } from 'react'
-import { Link, useNavigate, useParams } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { Link, useNavigate, useOutletContext, useParams } from 'react-router-dom'
 import { Col, Container, Row } from 'react-bootstrap'
 import MapaButacas from '../components/butacas/MapaButacas.jsx'
 import ResumenButacas from '../components/butacas/ResumenButacas.jsx'
 import Seo from '../components/seo/Seo.jsx'
 import { MAXIMO_BUTACAS } from '../datos/butacas.js'
-import { cartelera } from '../datos/cartelera.js'
 import { ESTADO_FUNCION_AGOTADA } from '../datos/estados.js'
-import { RUTA_CARRITO, RUTA_PELICULAS } from '../datos/rutas.js'
+import { RUTA_CANDYBAR, RUTA_PELICULAS } from '../datos/rutas.js'
 import { obtenerButacasOcupadas, obtenerFuncion } from '../servicios/funciones.js'
+import { obtenerPelicula } from '../servicios/peliculas.js'
 import { TIPO_ENTRADA } from '../utilidades/carrito.js'
 import { obtenerFechaDeHoy, obtenerHoraActual } from '../utilidades/fechas.js'
 import { yaEmpezo } from '../utilidades/funciones.js'
@@ -17,20 +17,29 @@ import NoEncontrada from './NoEncontrada.jsx'
 const Butacas = ({ alAgregarEntrada }) => {
   const { idFuncion } = useParams()
   const navigate = useNavigate()
+  const { registrarButacas } = useOutletContext()
+
+  useEffect(() => {
+    return () => registrarButacas(0)
+  }, [registrarButacas])
   const [seleccionadas, setSeleccionadas] = useState([])
   const funcion = obtenerFuncion(idFuncion)
 
   if (funcion === undefined) return <NoEncontrada />
 
-  const pelicula = cartelera.find((elemento) => elemento.id === funcion.peliculaId)
+  const pelicula = obtenerPelicula(funcion.peliculaId)
   const ocupadas = obtenerButacasOcupadas(funcion.id)
   const alcanzoMaximo = seleccionadas.length === MAXIMO_BUTACAS
   const haEmpezado = yaEmpezo(funcion, obtenerFechaDeHoy(), obtenerHoraActual())
 
-  const alternarButaca = (codigo) =>
-    setSeleccionadas((actuales) =>
-      actuales.includes(codigo) ? actuales.filter((elegida) => elegida !== codigo) : [...actuales, codigo],
-    )
+  const alternarButaca = (codigo) => {
+    const nuevas = seleccionadas.includes(codigo)
+      ? seleccionadas.filter((elegida) => elegida !== codigo)
+      : [...seleccionadas, codigo]
+
+    setSeleccionadas(nuevas)
+    registrarButacas(nuevas.length)
+  }
 
   const agregarAlCarrito = () => {
     alAgregarEntrada({
@@ -41,7 +50,7 @@ const Butacas = ({ alAgregarEntrada }) => {
       precioUnitario: funcion.precio,
       cantidad: seleccionadas.length,
     })
-    navigate(RUTA_CARRITO)
+    navigate(RUTA_CANDYBAR)
   }
 
   return (
