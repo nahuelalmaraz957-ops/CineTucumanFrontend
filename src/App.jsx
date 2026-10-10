@@ -12,7 +12,7 @@ import Peliculas from './pages/Peliculas.jsx'
 import { obtenerFuncion } from './servicios/funciones.js'
 import {
   TIPO_ENTRADA,
-  contarEntradas,
+  contarArticulos,
   guardarCarrito,
   leerCarrito,
   quitarItem,
@@ -51,7 +51,7 @@ const App = () => {
       <Route
         element={
           <Layout
-            cantidadEnCarrito={contarEntradas(carrito)}
+            cantidadEnCarrito={contarArticulos(carrito)}
             idPeliculaDelCarrito={obtenerPeliculaDelCarrito(carrito)}
           />
         }

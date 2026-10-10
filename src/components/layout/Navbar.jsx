@@ -80,7 +80,7 @@ const Navbar = ({ cantidadEnCarrito, idPeliculaEnJuego, butacasElegidas, alCompr
                 to={RUTA_CARRITO}
                 variant="outline-light"
                 size="sm"
-                aria-label={`Carrito, ${cantidadEnCarrito} entradas`}
+                aria-label={`Carrito, ${cantidadEnCarrito} ${cantidadEnCarrito === 1 ? 'artículo' : 'artículos'}`}
                 onClick={cerrarMenu}
               >
                 <Icono nombre="carrito" tamano={18} /> Carrito
