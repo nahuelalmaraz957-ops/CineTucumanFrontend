@@ -5,13 +5,14 @@ import Icono from '../comunes/Icono.jsx'
 import pochoclinMini from '../../assets/imagenes/marca/pochoclin-mini.png'
 import { AVISO_CAMBIAR_FUNCION, AVISO_ELEGIR_PELICULA } from '../../datos/avisos.js'
 import { accionesNavbar, enlacesNavbar } from '../../datos/navegacion.js'
-import { RUTA_CARRITO, RUTA_INICIO, rutaFunciones } from '../../datos/rutas.js'
+import { RUTA_INICIO, rutaFunciones } from '../../datos/rutas.js'
 import '../../estilos/Navbar.css'
 
 const Navbar = ({ cantidadEnCarrito, idPeliculaEnJuego, butacasElegidas, alComprar }) => {
   const [menuAbierto, setMenuAbierto] = useState(false)
 
   const cerrarMenu = () => setMenuAbierto(false)
+  const etiquetaDelCarrito = `Carrito, ${cantidadEnCarrito} ${cantidadEnCarrito === 1 ? 'artículo' : 'artículos'}`
 
   const abrirAvisoDeCompra = (tipo) => () => {
     cerrarMenu()
@@ -19,6 +20,8 @@ const Navbar = ({ cantidadEnCarrito, idPeliculaEnJuego, butacasElegidas, alCompr
   }
 
   const obtenerPropsAccion = (accion) => {
+    if (accion.marcaPaginaActual) return { as: NavLink, to: accion.ruta, onClick: cerrarMenu }
+
     if (!accion.esCompra) return { as: Link, to: accion.ruta, onClick: cerrarMenu }
 
     if (!idPeliculaEnJuego) return { onClick: abrirAvisoDeCompra(AVISO_ELEGIR_PELICULA) }
@@ -70,26 +73,16 @@ const Navbar = ({ cantidadEnCarrito, idPeliculaEnJuego, butacasElegidas, alCompr
                   {...obtenerPropsAccion(accion)}
                   variant={accion.variante}
                   size={accion.tamano}
-                  aria-label={accion.etiquetaAccesible}
+                  aria-label={accion.esCarrito ? etiquetaDelCarrito : accion.etiquetaAccesible}
                 >
                   <Icono nombre={accion.icono} tamano={18} /> {accion.etiqueta}
+                  {accion.esCarrito && cantidadEnCarrito > 0 && (
+                    <Badge bg="primary" pill className="ms-2">
+                      {cantidadEnCarrito}
+                    </Badge>
+                  )}
                 </Button>
               ))}
-              <Button
-                as={Link}
-                to={RUTA_CARRITO}
-                variant="outline-light"
-                size="sm"
-                aria-label={`Carrito, ${cantidadEnCarrito} ${cantidadEnCarrito === 1 ? 'artículo' : 'artículos'}`}
-                onClick={cerrarMenu}
-              >
-                <Icono nombre="carrito" tamano={18} /> Carrito
-                {cantidadEnCarrito > 0 && (
-                  <Badge bg="primary" pill className="ms-2">
-                    {cantidadEnCarrito}
-                  </Badge>
-                )}
-              </Button>
             </div>
           </NavbarBootstrap.Collapse>
         </Container>
