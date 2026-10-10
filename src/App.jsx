@@ -1,15 +1,29 @@
 import { useEffect, useState } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import Layout from './components/layout/Layout.jsx'
-import { RUTA_BUTACAS, RUTA_CANDYBAR, RUTA_CARRITO, RUTA_FUNCIONES, RUTA_PELICULAS } from './datos/rutas.js'
+import {
+  RUTA_BUTACAS,
+  RUTA_CANDYBAR,
+  RUTA_CARRITO,
+  RUTA_FUNCIONES,
+  RUTA_INICIAR_SESION,
+  RUTA_PELICULAS,
+  RUTA_RECUPERAR_CONTRASENA,
+  RUTA_REGISTRO,
+  RUTA_TERMINOS,
+} from './datos/rutas.js'
 import Butacas from './pages/Butacas.jsx'
 import CandyBar from './pages/CandyBar.jsx'
 import Carrito from './pages/Carrito.jsx'
 import DetallePelicula from './pages/DetallePelicula.jsx'
 import Funciones from './pages/Funciones.jsx'
 import Inicio from './pages/Inicio.jsx'
+import IniciarSesion from './pages/IniciarSesion.jsx'
 import NoEncontrada from './pages/NoEncontrada.jsx'
 import Peliculas from './pages/Peliculas.jsx'
+import RecuperarContrasena from './pages/RecuperarContrasena.jsx'
+import Registro from './pages/Registro.jsx'
+import Terminos from './pages/Terminos.jsx'
 import { obtenerFuncion } from './servicios/funciones.js'
 import {
   TIPO_ENTRADA,
@@ -72,6 +86,10 @@ const App = () => {
           path={RUTA_CARRITO}
           element={<Carrito items={carrito} alQuitar={quitarDelCarrito} alVaciar={vaciarCarrito} />}
         />
+        <Route path={RUTA_INICIAR_SESION} element={<IniciarSesion />} />
+        <Route path={RUTA_RECUPERAR_CONTRASENA} element={<RecuperarContrasena />} />
+        <Route path={RUTA_REGISTRO} element={<Registro />} />
+        <Route path={RUTA_TERMINOS} element={<Terminos />} />
         <Route path="*" element={<NoEncontrada />} />
       </Route>
     </Routes>
