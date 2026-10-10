@@ -6,7 +6,7 @@ import ResumenButacas from '../components/butacas/ResumenButacas.jsx'
 import Seo from '../components/seo/Seo.jsx'
 import { MAXIMO_BUTACAS } from '../datos/butacas.js'
 import { ESTADO_FUNCION_AGOTADA } from '../datos/estados.js'
-import { RUTA_CARRITO, RUTA_PELICULAS } from '../datos/rutas.js'
+import { RUTA_CANDYBAR, RUTA_PELICULAS } from '../datos/rutas.js'
 import { obtenerButacasOcupadas, obtenerFuncion } from '../servicios/funciones.js'
 import { obtenerPelicula } from '../servicios/peliculas.js'
 import { TIPO_ENTRADA } from '../utilidades/carrito.js'
@@ -50,7 +50,7 @@ const Butacas = ({ alAgregarEntrada }) => {
       precioUnitario: funcion.precio,
       cantidad: seleccionadas.length,
     })
-    navigate(RUTA_CARRITO)
+    navigate(RUTA_CANDYBAR)
   }
 
   return (
