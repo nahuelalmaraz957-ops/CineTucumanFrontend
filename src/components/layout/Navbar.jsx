@@ -31,7 +31,7 @@ const Navbar = ({ cantidadEnCarrito, idPeliculaEnJuego, butacasElegidas, alCompr
   return (
     <header className="encabezado-sitio sticky-top">
       <NavbarBootstrap
-        expand="lg"
+        expand="xl"
         variant="dark"
         expanded={menuAbierto}
         onToggle={setMenuAbierto}
@@ -50,7 +50,7 @@ const Navbar = ({ cantidadEnCarrito, idPeliculaEnJuego, butacasElegidas, alCompr
           </NavbarBootstrap.Brand>
           <NavbarBootstrap.Toggle aria-controls="navbarMain" aria-label="Abrir menú de navegación" />
           <NavbarBootstrap.Collapse id="navbarMain">
-            <Nav className="me-lg-auto mb-2 mb-lg-0">
+            <Nav className="me-xl-auto mb-2 mb-xl-0">
               {enlacesNavbar.map((enlace) => (
                 <Nav.Link
                   key={enlace.ruta}
@@ -63,7 +63,7 @@ const Navbar = ({ cantidadEnCarrito, idPeliculaEnJuego, butacasElegidas, alCompr
                 </Nav.Link>
               ))}
             </Nav>
-            <div className="d-flex flex-column flex-lg-row align-items-lg-center gap-2 gap-lg-3">
+            <div className="d-flex flex-column flex-xl-row align-items-xl-center gap-2 gap-xl-3">
               {accionesNavbar.map((accion) => (
                 <Button
                   key={accion.etiqueta}

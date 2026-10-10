@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { Col, Container, Row } from 'react-bootstrap'
 import { columnasFooter } from '../../datos/navegacion.js'
+import { RUTA_SUCURSALES } from '../../datos/rutas.js'
 import { obtenerSucursales } from '../../servicios/sucursales.js'
 import '../../estilos/Footer.css'
 
@@ -27,7 +28,11 @@ const Footer = () => {
             </Col>
           ))}
           <Col xs={6} md={3} lg={2}>
-            <h3 className="h6 text-uppercase text-body-secondary mb-3">Nuestras sucursales</h3>
+            <h3 className="h6 text-uppercase text-body-secondary mb-3">
+              <Link to={RUTA_SUCURSALES} className="text-reset">
+                Nuestras sucursales
+              </Link>
+            </h3>
             <ul className="list-unstyled d-flex flex-column gap-2 mb-0">
               {obtenerSucursales().map((sucursal) => (
                 <li key={sucursal.id}>{sucursal.nombre}</li>
