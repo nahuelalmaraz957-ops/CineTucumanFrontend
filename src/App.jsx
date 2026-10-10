@@ -9,6 +9,7 @@ import {
   RUTA_INICIAR_SESION,
   RUTA_PELICULAS,
   RUTA_RECUPERAR_CONTRASENA,
+  RUTA_REGISTRO,
   RUTA_TERMINOS,
 } from './datos/rutas.js'
 import Butacas from './pages/Butacas.jsx'
@@ -21,6 +22,7 @@ import IniciarSesion from './pages/IniciarSesion.jsx'
 import NoEncontrada from './pages/NoEncontrada.jsx'
 import Peliculas from './pages/Peliculas.jsx'
 import RecuperarContrasena from './pages/RecuperarContrasena.jsx'
+import Registro from './pages/Registro.jsx'
 import Terminos from './pages/Terminos.jsx'
 import { obtenerFuncion } from './servicios/funciones.js'
 import {
@@ -86,6 +88,7 @@ const App = () => {
         />
         <Route path={RUTA_INICIAR_SESION} element={<IniciarSesion />} />
         <Route path={RUTA_RECUPERAR_CONTRASENA} element={<RecuperarContrasena />} />
+        <Route path={RUTA_REGISTRO} element={<Registro />} />
         <Route path={RUTA_TERMINOS} element={<Terminos />} />
         <Route path="*" element={<NoEncontrada />} />
       </Route>

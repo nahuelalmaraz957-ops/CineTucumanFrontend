@@ -6,6 +6,7 @@ export const RUTA_BUTACAS = '/butacas'
 export const RUTA_CANDYBAR = '/candybar'
 export const RUTA_INICIAR_SESION = '/iniciar-sesion'
 export const RUTA_RECUPERAR_CONTRASENA = '/recuperar-contrasena'
+export const RUTA_REGISTRO = '/registro'
 export const RUTA_TERMINOS = '/terminos'
 
 export const rutaFunciones = (idPelicula) => `${RUTA_FUNCIONES}?pelicula=${idPelicula}`

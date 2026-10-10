@@ -4,7 +4,7 @@ import { Alert, Button, Card, Col, Container, Form, Row } from 'react-bootstrap'
 import CampoFormulario from '../components/formularios/CampoFormulario.jsx'
 import Seo from '../components/seo/Seo.jsx'
 import { MENSAJE_SIN_SESION } from '../datos/formularios.js'
-import { RUTA_RECUPERAR_CONTRASENA } from '../datos/rutas.js'
+import { RUTA_RECUPERAR_CONTRASENA, RUTA_REGISTRO } from '../datos/rutas.js'
 import {
   hayErrores,
   revalidarCamposConError,
@@ -99,6 +99,9 @@ const IniciarSesion = () => {
                   Iniciar sesión
                 </Button>
               </Form>
+              <p className="text-center mt-4 mb-0">
+                ¿No tenés cuenta? <Link to={RUTA_REGISTRO}>Registrate</Link>
+              </p>
             </Card.Body>
           </Card>
         </Col>
