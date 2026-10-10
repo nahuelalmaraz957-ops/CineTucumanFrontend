@@ -1,12 +1,13 @@
-import { Link } from 'react-router-dom'
+import { Link, useOutletContext } from 'react-router-dom'
 import { Button, Col, Container, Row } from 'react-bootstrap'
 import GrillaPeliculas from '../components/peliculas/GrillaPeliculas.jsx'
 import Portada from '../components/peliculas/Portada.jsx'
 import Seo from '../components/seo/Seo.jsx'
 import TarjetaSucursal from '../components/sucursales/TarjetaSucursal.jsx'
+import { AVISO_ELEGIR_PELICULA } from '../datos/avisos.js'
 import { cartelera } from '../datos/cartelera.js'
 import { ESTADO_EN_CARTELERA, ESTADO_PROXIMAMENTE } from '../datos/estados.js'
-import { RUTA_PELICULAS } from '../datos/rutas.js'
+import { rutaFunciones } from '../datos/rutas.js'
 import { sucursales } from '../datos/sucursales.js'
 
 const destacadas = cartelera.filter((pelicula) => pelicula.destacada && pelicula.estado === ESTADO_EN_CARTELERA)
@@ -17,6 +18,7 @@ const proximosEstrenos = cartelera.filter(
 const sucursalesDestacadas = sucursales.filter((sucursal) => sucursal.destacada)
 
 const Inicio = () => {
+  const { abrirAviso, idPeliculaEnJuego } = useOutletContext()
   return (
     <>
       <Seo
@@ -74,9 +76,15 @@ const Inicio = () => {
           <h2 id="titulo-llamado-final">¿Listo para ir al cine?</h2>
           <p className="lead mb-4">Descubrí las películas disponibles y elegí tu próxima función.</p>
           <div className="d-flex flex-column flex-sm-row justify-content-center gap-3">
-            <Button as={Link} to={RUTA_PELICULAS} variant="marca" size="lg">
-              Comprar entradas
-            </Button>
+            {idPeliculaEnJuego ? (
+              <Button as={Link} to={rutaFunciones(idPeliculaEnJuego)} variant="marca" size="lg">
+                Comprar entradas
+              </Button>
+            ) : (
+              <Button variant="marca" size="lg" onClick={() => abrirAviso(AVISO_ELEGIR_PELICULA)}>
+                Comprar entradas
+              </Button>
+            )}
           </div>
         </Container>
       </section>

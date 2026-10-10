@@ -3,14 +3,30 @@ import { Link, NavLink } from 'react-router-dom'
 import { Badge, Button, Container, Nav, Navbar as NavbarBootstrap } from 'react-bootstrap'
 import Icono from '../comunes/Icono.jsx'
 import pochoclinMini from '../../assets/imagenes/marca/pochoclin-mini.png'
+import { AVISO_CAMBIAR_FUNCION, AVISO_ELEGIR_PELICULA } from '../../datos/avisos.js'
 import { accionesNavbar, enlacesNavbar } from '../../datos/navegacion.js'
-import { RUTA_CARRITO, RUTA_INICIO } from '../../datos/rutas.js'
+import { RUTA_CARRITO, RUTA_INICIO, rutaFunciones } from '../../datos/rutas.js'
 import '../../estilos/Navbar.css'
 
-const Navbar = ({ cantidadEnCarrito }) => {
+const Navbar = ({ cantidadEnCarrito, idPeliculaEnJuego, butacasElegidas, alComprar }) => {
   const [menuAbierto, setMenuAbierto] = useState(false)
 
   const cerrarMenu = () => setMenuAbierto(false)
+
+  const abrirAvisoDeCompra = (tipo) => () => {
+    cerrarMenu()
+    alComprar(tipo)
+  }
+
+  const obtenerPropsAccion = (accion) => {
+    if (!accion.esCompra) return { as: Link, to: accion.ruta, onClick: cerrarMenu }
+
+    if (!idPeliculaEnJuego) return { onClick: abrirAvisoDeCompra(AVISO_ELEGIR_PELICULA) }
+
+    if (butacasElegidas > 0) return { onClick: abrirAvisoDeCompra(AVISO_CAMBIAR_FUNCION) }
+
+    return { as: Link, to: rutaFunciones(idPeliculaEnJuego), onClick: cerrarMenu }
+  }
 
   return (
     <header className="encabezado-sitio sticky-top">
@@ -51,12 +67,10 @@ const Navbar = ({ cantidadEnCarrito }) => {
               {accionesNavbar.map((accion) => (
                 <Button
                   key={accion.etiqueta}
-                  as={Link}
-                  to={accion.ruta}
+                  {...obtenerPropsAccion(accion)}
                   variant={accion.variante}
                   size={accion.tamano}
                   aria-label={accion.etiquetaAccesible}
-                  onClick={cerrarMenu}
                 >
                   <Icono nombre={accion.icono} tamano={18} /> {accion.etiqueta}
                 </Button>

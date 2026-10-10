@@ -6,6 +6,8 @@ export const RUTA_BUTACAS = '/butacas'
 
 export const rutaFunciones = (idPelicula) => `${RUTA_FUNCIONES}?pelicula=${idPelicula}`
 
+export const rutaDetalle = (idPelicula) => `${RUTA_PELICULAS}/${idPelicula}`
+
 export const rutaButacas = (idFuncion) => `${RUTA_BUTACAS}/${idFuncion}`
 export const HASH_BUSCADOR = '#buscador'
 export const RUTA_BUSCADOR = `${RUTA_PELICULAS}${HASH_BUSCADOR}`
