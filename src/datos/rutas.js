@@ -4,6 +4,7 @@ export const RUTA_FUNCIONES = '/funciones'
 export const RUTA_CARRITO = '/carrito'
 export const RUTA_BUTACAS = '/butacas'
 export const RUTA_CANDYBAR = '/candybar'
+export const RUTA_INICIAR_SESION = '/iniciar-sesion'
 export const RUTA_RECUPERAR_CONTRASENA = '/recuperar-contrasena'
 export const RUTA_TERMINOS = '/terminos'
 
