@@ -7,7 +7,7 @@ import TarjetaSucursal from '../components/sucursales/TarjetaSucursal.jsx'
 import { AVISO_ELEGIR_PELICULA } from '../datos/avisos.js'
 import { cartelera } from '../datos/cartelera.js'
 import { ESTADO_EN_CARTELERA, ESTADO_PROXIMAMENTE } from '../datos/estados.js'
-import { RUTA_SUCURSALES, rutaFunciones } from '../datos/rutas.js'
+import { RUTA_DESCUBRIR, RUTA_SUCURSALES, rutaFunciones } from '../datos/rutas.js'
 import { obtenerSucursalesDestacadas } from '../servicios/sucursales.js'
 
 const destacadas = cartelera.filter((pelicula) => pelicula.destacada && pelicula.estado === ESTADO_EN_CARTELERA)
@@ -45,6 +45,11 @@ const Inicio = () => {
               <GrillaPeliculas peliculas={proximamente} />
             </section>
           )}
+          <div className="text-center mt-5">
+            <Button as={Link} to={RUTA_DESCUBRIR} variant="outline-light" size="lg">
+              Más películas del mundo
+            </Button>
+          </div>
         </Container>
       </section>
       {proximosEstrenos.length > 0 && (

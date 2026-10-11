@@ -2,6 +2,7 @@ import {
   RUTA_BUSCADOR,
   RUTA_CANDYBAR,
   RUTA_CARRITO,
+  RUTA_DESCUBRIR,
   RUTA_INICIAR_SESION,
   RUTA_INICIO,
   RUTA_PELICULAS,
@@ -49,6 +50,7 @@ export const columnasFooter = [
     enlaces: [
       { etiqueta: 'Cartelera', ruta: RUTA_PELICULAS },
       { etiqueta: 'Próximos estrenos', ruta: RUTA_PELICULAS },
+      { etiqueta: 'Más películas del mundo', ruta: RUTA_DESCUBRIR },
     ],
   },
 ]
