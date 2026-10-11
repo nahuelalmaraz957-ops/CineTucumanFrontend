@@ -9,6 +9,7 @@ export const RUTA_RECUPERAR_CONTRASENA = '/recuperar-contrasena'
 export const RUTA_REGISTRO = '/registro'
 export const RUTA_TERMINOS = '/terminos'
 export const RUTA_SUCURSALES = '/sucursales'
+export const RUTA_DESCUBRIR = '/descubrir'
 
 export const rutaFunciones = (idPelicula) => `${RUTA_FUNCIONES}?pelicula=${idPelicula}`
 

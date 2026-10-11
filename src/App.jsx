@@ -5,6 +5,7 @@ import {
   RUTA_BUTACAS,
   RUTA_CANDYBAR,
   RUTA_CARRITO,
+  RUTA_DESCUBRIR,
   RUTA_FUNCIONES,
   RUTA_INICIAR_SESION,
   RUTA_PELICULAS,
@@ -16,6 +17,7 @@ import {
 import Butacas from './pages/Butacas.jsx'
 import CandyBar from './pages/CandyBar.jsx'
 import Carrito from './pages/Carrito.jsx'
+import Descubrir from './pages/Descubrir.jsx'
 import DetallePelicula from './pages/DetallePelicula.jsx'
 import Funciones from './pages/Funciones.jsx'
 import Inicio from './pages/Inicio.jsx'
@@ -79,6 +81,7 @@ const App = () => {
         <Route path={RUTA_FUNCIONES} element={<Funciones />} />
         <Route path={RUTA_PELICULAS} element={<Peliculas />} />
         <Route path={`${RUTA_PELICULAS}/:idPelicula`} element={<DetallePelicula />} />
+        <Route path={RUTA_DESCUBRIR} element={<Descubrir />} />
         <Route path={`${RUTA_BUTACAS}/:idFuncion`} element={<Butacas alAgregarEntrada={agregarEntrada} />} />
         <Route
           path={RUTA_CANDYBAR}
