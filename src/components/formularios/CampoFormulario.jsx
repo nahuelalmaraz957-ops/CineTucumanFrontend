@@ -1,6 +1,6 @@
 import { Form } from 'react-bootstrap'
 
-const CampoFormulario = ({ id, nombre, etiqueta, tipo = 'text', valor, error, autoComplete, alCambiar }) => {
+const CampoFormulario = ({ id, nombre, etiqueta, tipo = 'text', valor, error, autoComplete, alCambiar, ...resto }) => {
   const idError = `${id}-error`
 
   return (
@@ -15,6 +15,7 @@ const CampoFormulario = ({ id, nombre, etiqueta, tipo = 'text', valor, error, au
         aria-invalid={Boolean(error)}
         aria-describedby={error ? idError : undefined}
         onChange={alCambiar}
+        {...resto}
       />
       <Form.Control.Feedback type="invalid" id={idError} role="alert">
         {error}

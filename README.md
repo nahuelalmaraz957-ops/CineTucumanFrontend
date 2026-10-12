@@ -32,6 +32,7 @@ Hoy el sitio permite:
 - **Butacas** (`/butacas/:idFuncion`): mapa de la sala, hasta 6 butacas por compra, butacas accesibles y confirmación antes de salir si ya se eligieron.
 - **Candy Bar** (`/candybar`): paso opcional entre las butacas y el carrito, con hasta 10 unidades por producto.
 - **Carrito** (`/carrito`): entradas y productos, que se conservan al recargar porque se guardan en el navegador.
+- **Checkout** (`/checkout`) y **confirmación** (`/confirmacion`): resumen de la compra y pago con una tarjeta simulada, con validaciones. Al confirmar se vacía el carrito y se muestra el número de orden. No se cobra nada ni se generan entradas reales.
 - **Sucursales** (`/sucursales`): dirección, cómo llegar con el mapa y enlaces oficiales de cada cine.
 - **Más películas del mundo** (`/descubrir`): películas en cartelera en Argentina y búsqueda por título, con datos de la API pública de TMDB.
 - **Inicio de sesión y registro:** formularios con validaciones. Todavía no inician una sesión real: avisan que eso llegará con el servidor.
@@ -41,7 +42,7 @@ Hoy el sitio permite:
 
 Estas partes necesitan un servidor y una base de datos, y llegan con la API propia del proyecto:
 
-- Finalización de la compra (checkout) y confirmación.
+- Pago real y orden guardada en el servidor (hoy el checkout es una simulación).
 - Sesión real de usuario.
 - Historial de compras y «mis entradas».
 - Perfil del usuario.
@@ -108,43 +109,10 @@ src/
 
 Las páginas piden los datos a la capa de servicios. Hoy los servicios leen archivos locales o la API de TMDB; cuando exista la API propia, solo cambian esas funciones.
 
-## Conceptos de la materia aplicados
-
-### Hooks (TP7)
-
-| Hook | Dónde | Para qué |
-|---|---|---|
-| `useState` | `App` | El carrito, compartido por el navbar, las butacas, el Candy Bar y la página del carrito |
-| `useState` | `Peliculas`, `Funciones`, `Butacas`, `TarjetaProducto`, `Navbar`, `Layout`, `TrailerYoutube` | Buscador y filtros, butacas elegidas, cantidades, menú del celular, avisos y tráiler |
-| `useEffect` con `[carrito]` | `App` | Guardar el carrito en el navegador cada vez que cambia |
-| `useEffect` con `[ubicacion.key, tipoNavegacion]` | `Layout` | Volver arriba al cambiar de página, salvo con Atrás y Adelante |
-| `useEffect` con `[ubicacion]` | `Peliculas` | Enfocar el buscador al llegar desde el botón «Buscar» |
-| `useEffect` con `[agregado]` y limpieza | `TarjetaProducto` | Apagar el aviso «Agregado» con un temporizador |
-| `useEffect` con `[registrarButacas]` y limpieza | `Butacas` | Avisar que ya no hay butacas elegidas al salir de la página |
-| `useRef` | `Peliculas` | Acceder al campo del buscador para enfocarlo |
-| `useCallback` | `Layout`, `Descubrir` | Mantener estables funciones que son dependencias de efectos |
-| Hook propio `useFormulario` | Inicio de sesión y registro | Formularios controlados con validación, sin repetir la lógica |
-| `lazy` y `Suspense` | `App` | Cargar `/descubrir` recién al entrar ahí |
-
-### Consumo de una API pública (TP8)
-
-- **Axios** hace la petición `GET` a TMDB desde un cliente configurado una sola vez (`src/servicios/api.js`).
-- La petición corre dentro de un **`useEffect`** con dependencia `[busqueda]`, y su función de limpieza la **cancela** si se sale de la página.
-- **`useState`** guarda las películas, el estado de carga y el error.
-- Hay **estado de carga**, **manejo de errores** con `try / catch / finally` y avisos con **SweetAlert2**, con la opción de reintentar.
-- La dirección y la clave de la API se leen de **variables de entorno**, sin escribirlas en los componentes.
-
-### Otros conceptos
-
-- Componentes y props, listas con `map()` y renderizado condicional.
-- Estado levantado al ancestro común y contexto del `Outlet` de React Router.
-- Formularios controlados con validaciones del lado del cliente.
-- Enrutamiento con React Router: rutas con parámetros, consultas y página 404.
-
 ## Estrategias de SEO
 
 - **Título y descripción únicos por página.** El componente `Seo` escribe `<title>` y `<meta name="description">`, y cambian al navegar. Por eso `index.html` no tiene una descripción fija: quedaría duplicada.
-- **Páginas que no se indexan.** El carrito, las butacas, el inicio de sesión, el registro, las páginas «Próximamente» y la 404 llevan `noindex`.
+- **Páginas que no se indexan.** El carrito, el checkout, la confirmación, las butacas, el inicio de sesión, el registro, las páginas «Próximamente» y la 404 llevan `noindex`.
 - **`robots.txt` y `sitemap.xml`.** El sitemap lista las páginas públicas y las 20 fichas de películas, con la dirección del sitio publicado.
 - **Vista previa al compartir.** `index.html` tiene etiquetas Open Graph con título, descripción e imagen, y el color del sitio (`theme-color`).
 - **HTML semántico.** Se usan `<header>`, `<nav>`, `<main>`, `<footer>`, `<section>` y `<article>`, con una jerarquía de títulos sin saltos.
@@ -160,16 +128,10 @@ Las páginas piden los datos a la capa de servicios. Hoy los servicios leen arch
 
 ## Decisiones y límites conocidos
 
-- **Sin servidor todavía:** el inicio de sesión y el registro solo validan, y la compra termina en el carrito.
+- **Sin servidor todavía:** el inicio de sesión y el registro solo validan, y el pago del checkout es una simulación: no se cobra nada ni se guardan datos de tarjeta.
 - **Datos de ejemplo:** solo Spider-Man tiene funciones, el Candy Bar tiene un producto y las butacas ocupadas se simulan según el estado de cada función.
 - **La clave de TMDB** queda visible en el navegador mientras la API se consulte desde el frontend.
 - **El reproductor de YouTube** escribe sus propios avisos en la consola al reproducir el tráiler; no son del sitio.
-
-## Flujo de trabajo
-
-- Una rama por tema (`feat/…`, `fix/…`, `refactor/…`) que sale de `dev`.
-- Un pull request por tema, revisado por otra persona y mergeado con merge commit.
-- `dev` se integra en `main`, y Vercel publica `main`.
 
 ## Objetivo del proyecto
 

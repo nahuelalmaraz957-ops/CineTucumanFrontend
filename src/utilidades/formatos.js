@@ -5,6 +5,12 @@ import {
   ESTADO_PROXIMAMENTE,
 } from '../datos/estados.js'
 
+const FORMATO_FECHA_HORA = new Intl.DateTimeFormat('es-AR', {
+  dateStyle: 'long',
+  timeStyle: 'short',
+  timeZone: 'America/Argentina/Tucuman',
+})
+
 const FORMATO_FECHA_LARGA = new Intl.DateTimeFormat('es-AR', {
   day: 'numeric',
   month: 'long',
@@ -64,3 +70,5 @@ export const formatearMoneda = (monto) => FORMATO_MONEDA.format(monto)
 export const formatearFechaCorta = (fechaIso) => FORMATO_FECHA_CORTA.format(new Date(`${fechaIso}T00:00:00Z`))
 
 export const formatearEstadoFuncion = (estado) => ETIQUETAS_ESTADO_FUNCION[estado]
+
+export const formatearFechaHora = (fechaIso) => FORMATO_FECHA_HORA.format(new Date(fechaIso))

@@ -14,4 +14,13 @@ export const MENSAJES_FORMULARIO = {
   confirmacionVacia: 'Confirmá tu contraseña.',
   confirmacionDistinta: 'Las contraseñas no coinciden.',
   terminosNoAceptados: 'Tenés que aceptar los términos y condiciones.',
+  titularVacio: 'Ingresá el nombre del titular.',
+  tarjetaVacia: 'Ingresá el número de tarjeta.',
+  tarjetaInvalida: 'El número de tarjeta debe tener 16 dígitos.',
+  vencimientoVacio: 'Ingresá el vencimiento.',
+  vencimientoFormato: 'Usá el formato MM/AA, por ejemplo 09/28.',
+  vencimientoMes: 'El mes debe estar entre 01 y 12.',
+  tarjetaVencida: 'La tarjeta está vencida.',
+  cvvVacio: 'Ingresá el CVV.',
+  cvvInvalido: 'El CVV debe tener 3 dígitos.',
 }
