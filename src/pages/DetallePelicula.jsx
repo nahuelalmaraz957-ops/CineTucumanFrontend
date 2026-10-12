@@ -1,6 +1,7 @@
 import { Fragment } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { Badge, Button, Col, Container, Ratio, Row } from 'react-bootstrap'
+import TrailerYoutube from '../components/peliculas/TrailerYoutube.jsx'
 import Seo from '../components/seo/Seo.jsx'
 import { ESTADO_EN_CARTELERA } from '../datos/estados.js'
 import { rutaFunciones } from '../datos/rutas.js'
@@ -122,16 +123,7 @@ const DetallePelicula = () => {
           <h2 id="titulo-trailer" className="mb-3">
             Tráiler oficial
           </h2>
-          <Ratio aspectRatio="16x9">
-            <iframe
-              src={`https://www.youtube-nocookie.com/embed/${detalle.idTrailerYoutube}`}
-              title={`Tráiler oficial de ${pelicula.titulo}`}
-              loading="lazy"
-              referrerPolicy="strict-origin-when-cross-origin"
-              allow="encrypted-media; picture-in-picture; web-share"
-              allowFullScreen
-            />
-          </Ratio>
+          <TrailerYoutube idVideo={detalle.idTrailerYoutube} titulo={pelicula.titulo} />
         </section>
       )}
     </Container>

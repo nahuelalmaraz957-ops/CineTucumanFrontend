@@ -1,5 +1,6 @@
 export const ICONOS = {
   entrada: ['M3 7h18v3a2 2 0 0 0 0 4v3H3v-3a2 2 0 0 0 0-4z', 'M14.5 7v10'],
+  reproducir: ['M8 5l11 7-11 7z'],
   lupa: ['M10.5 18a7.5 7.5 0 1 0 0-15 7.5 7.5 0 0 0 0 15z', 'M16 16l5 5'],
   reloj: ['M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18z', 'M12 7v5l3 2'],
   pochoclo: [

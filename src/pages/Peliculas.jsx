@@ -1,12 +1,12 @@
 import { useEffect, useRef, useState } from 'react'
-import { useLocation } from 'react-router-dom'
-import { Container } from 'react-bootstrap'
+import { Link, useLocation } from 'react-router-dom'
+import { Button, Container } from 'react-bootstrap'
 import FiltrosPeliculas from '../components/peliculas/FiltrosPeliculas.jsx'
 import SeccionPeliculas from '../components/peliculas/SeccionPeliculas.jsx'
 import Seo from '../components/seo/Seo.jsx'
 import { cartelera } from '../datos/cartelera.js'
 import { ESTADO_EN_CARTELERA, ESTADO_PROXIMAMENTE } from '../datos/estados.js'
-import { HASH_BUSCADOR } from '../datos/rutas.js'
+import { HASH_BUSCADOR, RUTA_DESCUBRIR } from '../datos/rutas.js'
 import { normalizarTexto } from '../utilidades/busqueda.js'
 
 const Peliculas = () => {
@@ -62,6 +62,17 @@ const Peliculas = () => {
           No se encontraron películas con esos filtros.
         </p>
       )}
+      <section className="text-center py-5" aria-labelledby="titulo-mas-peliculas">
+        <h2 id="titulo-mas-peliculas" className="h3">
+          ¿No encontrás la que buscás?
+        </h2>
+        <p className="text-body-secondary mb-4">
+          Explorá las películas en cartelera en Argentina y buscá cualquier título.
+        </p>
+        <Button as={Link} to={RUTA_DESCUBRIR} variant="outline-light" size="lg">
+          Más películas del mundo
+        </Button>
+      </section>
     </Container>
   )
 }

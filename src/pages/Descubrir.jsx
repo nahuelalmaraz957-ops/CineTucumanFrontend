@@ -82,14 +82,17 @@ const Descubrir = () => {
         {busqueda.termino ? `Resultados para «${busqueda.termino}»` : 'En cartelera en Argentina, con datos de TMDB.'}
       </p>
       <Form role="search" onSubmit={buscar} className="d-flex gap-2 mb-4">
-        <Form.Control
-          type="search"
-          aria-label="Buscar una película por título"
-          placeholder="Buscar por título"
-          value={termino}
-          onChange={(evento) => setTermino(evento.target.value)}
-          disabled={!apiConfigurada}
-        />
+        <Form.Group controlId="buscar-pelicula-api" className="flex-grow-1">
+          <Form.Label className="visually-hidden">Buscar una película por título</Form.Label>
+          <Form.Control
+            type="search"
+            name="termino"
+            placeholder="Buscar por título"
+            value={termino}
+            onChange={(evento) => setTermino(evento.target.value)}
+            disabled={!apiConfigurada}
+          />
+        </Form.Group>
         <Button type="submit" variant="marca" disabled={!apiConfigurada || cargando}>
           Buscar
         </Button>

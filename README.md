@@ -11,6 +11,8 @@
 
 **Año:** 2026
 
+**Sitio publicado:** https://cine-tucuman-frontend.vercel.app
+
 ## Descripción del proyecto
 
 Cine Tucumán es una plataforma web para la gestión y compra de entradas de cine, desarrollada como proyecto académico. La visión completa del proyecto es reproducir la experiencia de una persona que quiere ir al cine: consultar la cartelera y elegir una película, seleccionar una función y las butacas, sumar productos de Candy Bar y finalizar la compra.
@@ -23,53 +25,152 @@ Este repositorio es el frontend hecho con React. Retoma el primer trabajo de la 
 
 Hoy el sitio permite:
 
-- Ver la página de inicio, con la portada, las películas destacadas, los próximos estrenos y los cines de Tucumán.
-- Consultar la cartelera en `/peliculas`, buscar películas por título y filtrarlas por estado (en cartelera o próximamente).
-- Navegar con una barra de navegación y un pie de página comunes a todas las páginas.
+- **Inicio:** portada con la película principal, películas destacadas, próximos estrenos y cines de Tucumán.
+- **Cartelera** (`/peliculas`): 20 películas, con buscador por título (sin importar acentos ni mayúsculas) y filtro por estado (en cartelera o próximamente).
+- **Ficha de cada película** (`/peliculas/:idPelicula`): sinopsis, ficha técnica, reparto y tráiler, que se carga recién al tocar «Reproducir tráiler». Donde falta un dato se muestra «Por confirmar».
+- **Funciones** (`/funciones?pelicula=…`): los próximos 7 días, con filtros por fecha y formato. Las funciones que ya empezaron se marcan y no se pueden comprar.
+- **Butacas** (`/butacas/:idFuncion`): mapa de la sala, hasta 6 butacas por compra, butacas accesibles y confirmación antes de salir si ya se eligieron.
+- **Candy Bar** (`/candybar`): paso opcional entre las butacas y el carrito, con hasta 10 unidades por producto.
+- **Carrito** (`/carrito`): entradas y productos, que se conservan al recargar porque se guardan en el navegador.
+- **Sucursales** (`/sucursales`): dirección, cómo llegar con el mapa y enlaces oficiales de cada cine.
+- **Más películas del mundo** (`/descubrir`): películas en cartelera en Argentina y búsqueda por título, con datos de la API pública de TMDB.
+- **Inicio de sesión y registro:** formularios con validaciones. Todavía no inician una sesión real: avisan que eso llegará con el servidor.
+- **«Comprar entradas»** lleva a las funciones de la película elegida o, si no hay ninguna, muestra un aviso que lo explica.
 
-Las películas que todavía no tienen sus datos completos muestran "Por confirmar".
+## Próximas etapas
 
-## Visión completa y próximas etapas
+Estas partes necesitan un servidor y una base de datos, y llegan con la API propia del proyecto:
 
-La compra de entradas es el objetivo final del proyecto. Las etapas que todavía no forman parte de este repositorio son:
+- Finalización de la compra (checkout) y confirmación.
+- Sesión real de usuario.
+- Historial de compras y «mis entradas».
+- Perfil del usuario.
 
-- Página de detalle de cada película.
-- Página de sucursales.
-- Selección de función y de butacas.
-- Candy Bar.
-- Carrito de compra y finalización de la compra.
-- Registro e inicio de sesión.
-- Historial de compras y entradas.
+## Cómo ejecutarlo
+
+Se necesita **Node.js 22** y npm.
+
+```
+git clone https://github.com/nahuelalmaraz957-ops/CineTucumanFrontend.git
+cd CineTucumanFrontend
+npm install
+cp .env.example .env
+npm run dev
+```
+
+Después de `cp .env.example .env`, hay que completar `VITE_API_KEY` en el archivo `.env` con una clave gratuita de TMDB. Sin ella el sitio funciona igual, y la página «Más películas del mundo» avisa que falta configurar la API.
+
+| Comando | Para qué |
+|---|---|
+| `npm run dev` | Servidor de desarrollo |
+| `npm run build` | Compilación para producción |
+| `npm run preview` | Probar la compilación |
+| `npm run lint` | Revisión del código con ESLint |
+
+Después de cada `git pull` que cambie `package.json`, hay que volver a correr `npm install`.
+
+## Variables de entorno
+
+| Variable | Qué guarda |
+|---|---|
+| `VITE_API_URL` | La dirección de la API de TMDB |
+| `VITE_API_KEY` | La clave de la API |
+| `VITE_IMAGES_URL` | La dirección de las imágenes de TMDB |
+
+- El archivo `.env` **no se sube a GitHub**: figura en `.gitignore`. Se sube `.env.example`, que no tiene secretos.
+- En Vercel se cargan en **Settings → Environment Variables** y hay que volver a desplegar, porque Vite las incorpora al compilar.
+- Como la API se consulta desde el navegador, la clave queda visible en el código publicado. Con el servidor propio, la clave pasará a vivir en el servidor.
 
 ## Tecnologías utilizadas
 
 - React 19 y Vite.
 - React Bootstrap y Bootstrap 5.3 para los componentes y los estilos.
 - React Router para la navegación entre páginas.
+- Axios para las peticiones a la API y SweetAlert2 para los avisos de error.
+- La API pública de TMDB (The Movie Database).
 - JavaScript con módulos ES, y CSS propio solo para lo que Bootstrap no cubre.
 - ESLint para el análisis del código.
-- Git y GitHub para el control de versiones.
-- Vercel para el despliegue del sitio.
+- Git y GitHub para el control de versiones, y Vercel para el despliegue.
+
+## Estructura del proyecto
+
+```
+src/
+  assets/       Imágenes: pósters, sucursales y la mascota
+  components/   Piezas reutilizables, agrupadas por tema
+  datos/        Información fija: películas, funciones, sucursales, rutas y textos
+  estilos/      CSS propio
+  hooks/        Hooks propios (useFormulario)
+  pages/        Una página por ruta
+  servicios/    Acceso a los datos y a la API
+  utilidades/   Funciones puras: fechas, formatos, carrito y validaciones
+```
+
+Las páginas piden los datos a la capa de servicios. Hoy los servicios leen archivos locales o la API de TMDB; cuando exista la API propia, solo cambian esas funciones.
 
 ## Conceptos de la materia aplicados
 
-- Componentes y props, por ejemplo `TarjetaPelicula`, `TarjetaSucursal` y `Seo`.
-- Listas recorridas con `map()` a partir de los datos.
-- Estado con `useState` en el buscador y el filtro de la cartelera.
-- Enrutamiento con React Router.
-- Componentes de React Bootstrap.
+### Hooks (TP7)
+
+| Hook | Dónde | Para qué |
+|---|---|---|
+| `useState` | `App` | El carrito, compartido por el navbar, las butacas, el Candy Bar y la página del carrito |
+| `useState` | `Peliculas`, `Funciones`, `Butacas`, `TarjetaProducto`, `Navbar`, `Layout`, `TrailerYoutube` | Buscador y filtros, butacas elegidas, cantidades, menú del celular, avisos y tráiler |
+| `useEffect` con `[carrito]` | `App` | Guardar el carrito en el navegador cada vez que cambia |
+| `useEffect` con `[ubicacion.key, tipoNavegacion]` | `Layout` | Volver arriba al cambiar de página, salvo con Atrás y Adelante |
+| `useEffect` con `[ubicacion]` | `Peliculas` | Enfocar el buscador al llegar desde el botón «Buscar» |
+| `useEffect` con `[agregado]` y limpieza | `TarjetaProducto` | Apagar el aviso «Agregado» con un temporizador |
+| `useEffect` con `[registrarButacas]` y limpieza | `Butacas` | Avisar que ya no hay butacas elegidas al salir de la página |
+| `useRef` | `Peliculas` | Acceder al campo del buscador para enfocarlo |
+| `useCallback` | `Layout`, `Descubrir` | Mantener estables funciones que son dependencias de efectos |
+| Hook propio `useFormulario` | Inicio de sesión y registro | Formularios controlados con validación, sin repetir la lógica |
+| `lazy` y `Suspense` | `App` | Cargar `/descubrir` recién al entrar ahí |
+
+### Consumo de una API pública (TP8)
+
+- **Axios** hace la petición `GET` a TMDB desde un cliente configurado una sola vez (`src/servicios/api.js`).
+- La petición corre dentro de un **`useEffect`** con dependencia `[busqueda]`, y su función de limpieza la **cancela** si se sale de la página.
+- **`useState`** guarda las películas, el estado de carga y el error.
+- Hay **estado de carga**, **manejo de errores** con `try / catch / finally` y avisos con **SweetAlert2**, con la opción de reintentar.
+- La dirección y la clave de la API se leen de **variables de entorno**, sin escribirlas en los componentes.
+
+### Otros conceptos
+
+- Componentes y props, listas con `map()` y renderizado condicional.
+- Estado levantado al ancestro común y contexto del `Outlet` de React Router.
+- Formularios controlados con validaciones del lado del cliente.
+- Enrutamiento con React Router: rutas con parámetros, consultas y página 404.
 
 ## Estrategias de SEO
 
-Aunque el proyecto es académico, aplicamos criterios de posicionamiento en buscadores (SEO on-page). Esto es lo que el sitio hace hoy:
+- **Título y descripción únicos por página.** El componente `Seo` escribe `<title>` y `<meta name="description">`, y cambian al navegar. Por eso `index.html` no tiene una descripción fija: quedaría duplicada.
+- **Páginas que no se indexan.** El carrito, las butacas, el inicio de sesión, el registro, las páginas «Próximamente» y la 404 llevan `noindex`.
+- **`robots.txt` y `sitemap.xml`.** El sitemap lista las páginas públicas y las 20 fichas de películas, con la dirección del sitio publicado.
+- **Vista previa al compartir.** `index.html` tiene etiquetas Open Graph con título, descripción e imagen, y el color del sitio (`theme-color`).
+- **HTML semántico.** Se usan `<header>`, `<nav>`, `<main>`, `<footer>`, `<section>` y `<article>`, con una jerarquía de títulos sin saltos.
+- **Texto alternativo en las imágenes**, **diseño adaptable** e **idioma declarado** (`<html lang="es">`).
+- **Direcciones limpias.** Las páginas se abren sin `.html`, y `vercel.json` hace que recargar una página interna no dé error.
 
-- **Título y descripción únicos por página.** El componente `Seo` recibe el título y la descripción como props y los escribe como `<title>` y `<meta name="description">`. Cambian al navegar: por ejemplo, la cartelera se titula "Cartelera de cine en Tucumán | Películas".
-- **HTML semántico.** Se usan `<header>`, `<nav>`, `<main>`, `<footer>`, `<section>` y `<article>` en lugar de bloques genéricos, para que los buscadores entiendan la jerarquía del contenido.
-- **Texto alternativo en las imágenes.** Los pósters y las fotos de las sucursales tienen su atributo `alt`.
-- **Diseño adaptable.** La etiqueta `viewport` y la grilla de Bootstrap hacen que el sitio se vea bien en celulares, algo que los buscadores tienen en cuenta.
-- **Direcciones limpias.** Las páginas se abren en `/` y `/peliculas`, sin `.html`. El archivo `vercel.json` redirige todas las direcciones a `index.html` para que recargar una página interna no dé error.
-- **Idioma declarado.** El documento usa `<html lang="es">`.
+## Accesibilidad
+
+- Etiquetas en todos los campos, errores asociados con `aria-describedby` y anunciados a los lectores de pantalla.
+- Navegación completa con teclado y foco en el primer error de los formularios.
+- Nombres accesibles que incluyen el texto visible, y avisos que indican cuándo un enlace abre una pestaña nueva.
+- Revisado con axe-core: ninguna falla en las pantallas del sitio.
+
+## Decisiones y límites conocidos
+
+- **Sin servidor todavía:** el inicio de sesión y el registro solo validan, y la compra termina en el carrito.
+- **Datos de ejemplo:** solo Spider-Man tiene funciones, el Candy Bar tiene un producto y las butacas ocupadas se simulan según el estado de cada función.
+- **La clave de TMDB** queda visible en el navegador mientras la API se consulte desde el frontend.
+- **El reproductor de YouTube** escribe sus propios avisos en la consola al reproducir el tráiler; no son del sitio.
+
+## Flujo de trabajo
+
+- Una rama por tema (`feat/…`, `fix/…`, `refactor/…`) que sale de `dev`.
+- Un pull request por tema, revisado por otra persona y mergeado con merge commit.
+- `dev` se integra en `main`, y Vercel publica `main`.
 
 ## Objetivo del proyecto
 
-El objetivo principal de Cine Tucumán es desarrollar una experiencia digital completa relacionada con la compra de entradas de cine, poniendo en práctica los conocimientos adquiridos durante la materia Programación IV. Además de cumplir con los objetivos académicos, buscamos que el proyecto tenga una experiencia de usuario clara, ordenada y cercana a la de una plataforma real, e incluya buenas prácticas de SEO desde el desarrollo.
+El objetivo principal de Cine Tucumán es desarrollar una experiencia digital completa relacionada con la compra de entradas de cine, poniendo en práctica los conocimientos adquiridos durante la materia Programación IV. Además de cumplir con los objetivos académicos, buscamos que el proyecto tenga una experiencia de usuario clara, ordenada y cercana a la de una plataforma real, e incluya buenas prácticas de SEO y accesibilidad desde el desarrollo.

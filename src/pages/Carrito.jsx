@@ -15,6 +15,7 @@ const Carrito = ({ items, alQuitar, alVaciar }) => {
   return (
     <Container className="py-4">
       <Seo titulo="Carrito | Cine Tucumán" descripcion="Revisá lo que elegiste antes de comprar." />
+      <meta name="robots" content="noindex" />
       <h1 className="mb-4">Carrito</h1>
       {estaVacio ? (
         <div className="text-center py-5">
