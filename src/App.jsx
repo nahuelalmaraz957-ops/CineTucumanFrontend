@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react'
+import { lazy, Suspense, useEffect, useState } from 'react'
 import { Route, Routes } from 'react-router-dom'
+import CargandoPagina from './components/comunes/CargandoPagina.jsx'
 import Layout from './components/layout/Layout.jsx'
 import {
   RUTA_BUTACAS,
@@ -17,7 +18,6 @@ import {
 import Butacas from './pages/Butacas.jsx'
 import CandyBar from './pages/CandyBar.jsx'
 import Carrito from './pages/Carrito.jsx'
-import Descubrir from './pages/Descubrir.jsx'
 import DetallePelicula from './pages/DetallePelicula.jsx'
 import Funciones from './pages/Funciones.jsx'
 import Inicio from './pages/Inicio.jsx'
@@ -41,6 +41,8 @@ import {
 import { obtenerPeliculaDelCarrito } from './utilidades/compra.js'
 import { obtenerFechaDeHoy, obtenerHoraActual } from './utilidades/fechas.js'
 import { yaEmpezo } from './utilidades/funciones.js'
+
+const Descubrir = lazy(() => import('./pages/Descubrir.jsx'))
 
 const esEntradaVigente = (item, hoy, hora) => {
   const funcion = obtenerFuncion(item.idFuncion)
@@ -81,7 +83,14 @@ const App = () => {
         <Route path={RUTA_FUNCIONES} element={<Funciones />} />
         <Route path={RUTA_PELICULAS} element={<Peliculas />} />
         <Route path={`${RUTA_PELICULAS}/:idPelicula`} element={<DetallePelicula />} />
-        <Route path={RUTA_DESCUBRIR} element={<Descubrir />} />
+        <Route
+          path={RUTA_DESCUBRIR}
+          element={
+            <Suspense fallback={<CargandoPagina />}>
+              <Descubrir />
+            </Suspense>
+          }
+        />
         <Route path={`${RUTA_BUTACAS}/:idFuncion`} element={<Butacas alAgregarEntrada={agregarEntrada} />} />
         <Route
           path={RUTA_CANDYBAR}
