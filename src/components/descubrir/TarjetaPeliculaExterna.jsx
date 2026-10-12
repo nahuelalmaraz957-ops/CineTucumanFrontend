@@ -31,7 +31,7 @@ const TarjetaPeliculaExterna = ({ pelicula }) => {
           href={`${URL_PELICULA_TMDB}/${pelicula.id}`}
           target="_blank"
           rel="noopener noreferrer"
-          aria-label={`Ver ${pelicula.titulo} en TMDB (se abre en una pestaña nueva)`}
+          aria-label={`Ver en TMDB: ${pelicula.titulo} (se abre en una pestaña nueva)`}
         >
           Ver en TMDB
         </a>

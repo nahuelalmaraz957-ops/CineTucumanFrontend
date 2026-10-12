@@ -3,9 +3,9 @@ import { BUTACAS, BUTACAS_ACCESIBLES, FILAS } from '../../datos/butacas.js'
 import '../../estilos/MapaButacas.css'
 
 const obtenerEstadoButaca = (estaOcupada, estaElegida) => {
-  if (estaOcupada) return 'Ocupada'
+  if (estaOcupada) return 'ocupada'
 
-  return estaElegida ? 'Seleccionada' : 'Libre'
+  return estaElegida ? 'seleccionada' : 'libre'
 }
 
 const MapaButacas = ({ ocupadas, seleccionadas, alcanzoMaximo, estaBloqueado, alAlternar }) => {
@@ -23,7 +23,7 @@ const MapaButacas = ({ ocupadas, seleccionadas, alcanzoMaximo, estaBloqueado, al
             const estaOcupada = ocupadas.includes(codigo)
             const estaElegida = seleccionadas.includes(codigo)
             const estado = obtenerEstadoButaca(estaOcupada, estaElegida)
-            const etiquetaAccesible = BUTACAS_ACCESIBLES.includes(codigo) ? ' - Accesible' : ''
+            const etiquetaAccesible = BUTACAS_ACCESIBLES.includes(codigo) ? ', accesible' : ''
 
             return (
               <Button
@@ -33,7 +33,7 @@ const MapaButacas = ({ ocupadas, seleccionadas, alcanzoMaximo, estaBloqueado, al
                 className="butaca"
                 disabled={estaBloqueado || estaOcupada || (alcanzoMaximo && !estaElegida)}
                 aria-pressed={estaElegida}
-                aria-label={`Butaca ${codigo} - ${estado}${etiquetaAccesible}`}
+                aria-label={`Butaca ${codigo.slice(1)} de la fila ${codigo[0]}, ${estado}${etiquetaAccesible}`}
                 onClick={() => alAlternar(codigo)}
               >
                 {estaOcupada ? '×' : codigo.slice(1)}
