@@ -41,7 +41,7 @@ const Footer = () => {
           </Col>
         </Row>
         <hr className="my-4 border-secondary-subtle" />
-        <p className="text-center text-body-secondary small mb-0">© 2026 Cine Tucumán</p>
+        <p className="text-center text-body-secondary small mb-0">© {new Date().getFullYear()} Cine Tucumán</p>
       </Container>
     </footer>
   )

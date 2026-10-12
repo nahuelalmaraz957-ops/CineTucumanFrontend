@@ -12,7 +12,7 @@ const Navbar = ({ cantidadEnCarrito, idPeliculaEnJuego, butacasElegidas, alCompr
   const [menuAbierto, setMenuAbierto] = useState(false)
 
   const cerrarMenu = () => setMenuAbierto(false)
-  const etiquetaDelCarrito = `Carrito, ${cantidadEnCarrito} ${cantidadEnCarrito === 1 ? 'artículo' : 'artículos'}`
+  const etiquetaDelCarrito = `Carrito ${cantidadEnCarrito} ${cantidadEnCarrito === 1 ? 'artículo' : 'artículos'}`
 
   const abrirAvisoDeCompra = (tipo) => () => {
     cerrarMenu()
@@ -77,9 +77,12 @@ const Navbar = ({ cantidadEnCarrito, idPeliculaEnJuego, butacasElegidas, alCompr
                 >
                   <Icono nombre={accion.icono} tamano={18} /> {accion.etiqueta}
                   {accion.esCarrito && cantidadEnCarrito > 0 && (
-                    <Badge bg="primary" pill className="ms-2">
-                      {cantidadEnCarrito}
-                    </Badge>
+                    <>
+                      {' '}
+                      <Badge bg="primary" pill className="ms-1">
+                        {cantidadEnCarrito}
+                      </Badge>
+                    </>
                   )}
                 </Button>
               ))}

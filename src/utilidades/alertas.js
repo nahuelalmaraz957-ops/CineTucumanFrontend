@@ -1,10 +1,10 @@
 import Swal from 'sweetalert2'
 
 const OPCIONES_BASE = {
-  background: '#241619',
-  color: '#F8F3E6',
-  confirmButtonColor: '#C43E2A',
-  cancelButtonColor: '#6c757d',
+  background: 'var(--bs-secondary-bg)',
+  color: 'var(--bs-body-color)',
+  confirmButtonColor: 'var(--bs-primary)',
+  cancelButtonColor: 'var(--bs-gray-600)',
 }
 
 export const avisarErrorDeApi = async (mensaje) => {

@@ -13,7 +13,7 @@ export const sucursales = [
     descripcion: 'Complejo Cine Atlas ubicado en San Miguel de Tucumán.',
     imagen: imagenCineAtlasMonteagudo,
     enlaces: [
-      { etiqueta: 'Sitio oficial', url: 'https://www.cineatlas.com.ar/' },
+      { etiqueta: 'Sitio oficial', url: 'https://www.cineatlasweb.com.ar/' },
       { etiqueta: 'Instagram', url: 'https://www.instagram.com/cine.atlas/' },
     ],
     destacada: true,
@@ -26,7 +26,7 @@ export const sucursales = [
     descripcion: 'Complejo Cine Atlas ubicado en una zona céntrica de San Miguel de Tucumán.',
     imagen: imagenCineAtlasVia24,
     enlaces: [
-      { etiqueta: 'Sitio oficial', url: 'https://www.cineatlas.com.ar/' },
+      { etiqueta: 'Sitio oficial', url: 'https://www.cineatlasweb.com.ar/' },
       { etiqueta: 'Instagram', url: 'https://www.instagram.com/cine.atlas/' },
     ],
     destacada: false,
@@ -39,9 +39,7 @@ export const sucursales = [
     referencia: 'Hipermercado Libertad.',
     descripcion: 'Complejo Cinemacenter ubicado en la zona de Avenida Roca de San Miguel de Tucumán.',
     imagen: imagenCinemacenterTucuman,
-    enlaces: [
-      { etiqueta: 'Sitio oficial', url: 'https://www.cinemacenter.com.ar/' },
-    ],
+    enlaces: [{ etiqueta: 'Sitio oficial', url: 'https://www.cinemacenter.com.ar/' }],
     destacada: true,
   },
   {
@@ -52,9 +50,7 @@ export const sucursales = [
     referencia: 'Portal de Tucumán Shopping.',
     descripcion: 'Complejo Sunstar Cinemas ubicado en Yerba Buena.',
     imagen: imagenSunstarCinemas,
-    enlaces: [
-      { etiqueta: 'Sitio oficial', url: 'https://www.cinesunstar.com/' },
-    ],
+    enlaces: [{ etiqueta: 'Sitio oficial', url: 'https://www.cinesunstar.com/' }],
     destacada: true,
   },
   {
