@@ -1,6 +1,6 @@
 import { CANTIDAD_MAXIMA } from '../datos/candybar.js'
 
-export const CLAVE_CARRITO = 'cine-tucuman:carrito'
+const CLAVE_CARRITO = 'cine-tucuman:carrito'
 export const TIPO_ENTRADA = 'entrada'
 export const TIPO_CANDYBAR = 'candybar'
 
