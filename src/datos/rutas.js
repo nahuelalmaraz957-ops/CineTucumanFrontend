@@ -10,6 +10,8 @@ export const RUTA_REGISTRO = '/registro'
 export const RUTA_TERMINOS = '/terminos'
 export const RUTA_SUCURSALES = '/sucursales'
 export const RUTA_DESCUBRIR = '/descubrir'
+export const RUTA_CHECKOUT = '/checkout'
+export const RUTA_CONFIRMACION = '/confirmacion'
 
 export const rutaFunciones = (idPelicula) => `${RUTA_FUNCIONES}?pelicula=${idPelicula}`
 

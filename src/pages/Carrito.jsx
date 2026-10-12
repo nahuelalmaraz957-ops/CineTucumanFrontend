@@ -3,7 +3,7 @@ import { Button, Container } from 'react-bootstrap'
 import ItemCarrito from '../components/carrito/ItemCarrito.jsx'
 import ItemProducto from '../components/carrito/ItemProducto.jsx'
 import Seo from '../components/seo/Seo.jsx'
-import { RUTA_PELICULAS } from '../datos/rutas.js'
+import { RUTA_CHECKOUT, RUTA_PELICULAS } from '../datos/rutas.js'
 import { TIPO_CANDYBAR, TIPO_ENTRADA, calcularTotal } from '../utilidades/carrito.js'
 import { formatearMoneda } from '../utilidades/formatos.js'
 
@@ -51,6 +51,11 @@ const Carrito = ({ items, alQuitar, alVaciar }) => {
               Vaciar carrito
             </Button>
             <p className="h4 mb-0">Total: {formatearMoneda(calcularTotal(items))}</p>
+          </div>
+          <div className="d-grid d-sm-flex justify-content-sm-end mt-3">
+            <Button as={Link} to={RUTA_CHECKOUT} variant="marca" size="lg">
+              Finalizar compra
+            </Button>
           </div>
         </>
       )}

@@ -1,14 +1,15 @@
 import { useState } from 'react'
 import { hayErrores, revalidarCamposConError, validarCampos } from '../utilidades/validaciones.js'
 
-const useFormulario = (valoresIniciales, reglas) => {
+const useFormulario = (valoresIniciales, reglas, { filtros = {}, alEnviarValido } = {}) => {
   const [valores, setValores] = useState(valoresIniciales)
   const [errores, setErrores] = useState({})
   const [exito, setExito] = useState(false)
 
   const cambiarValor = (evento) => {
     const { name, type, value, checked } = evento.target
-    const nuevosValores = { ...valores, [name]: type === 'checkbox' ? checked : value }
+    const valorFiltrado = filtros[name] ? filtros[name](value, evento) : value
+    const nuevosValores = { ...valores, [name]: type === 'checkbox' ? checked : valorFiltrado }
 
     setValores(nuevosValores)
     setErrores(revalidarCamposConError(reglas, errores, nuevosValores))
@@ -32,6 +33,8 @@ const useFormulario = (valoresIniciales, reglas) => {
     setValores(valoresIniciales)
     setErrores({})
     setExito(true)
+
+    if (alEnviarValido) alEnviarValido()
   }
 
   return { valores, errores, exito, cambiarValor, enviar }
