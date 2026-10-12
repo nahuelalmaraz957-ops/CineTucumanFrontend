@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Alert, Button, Card, Col, Container, Form, Row } from 'react-bootstrap'
 import CampoFormulario from '../components/formularios/CampoFormulario.jsx'
@@ -6,11 +5,9 @@ import CasillaFormulario from '../components/formularios/CasillaFormulario.jsx'
 import Seo from '../components/seo/Seo.jsx'
 import { MENSAJE_SIN_SESION } from '../datos/formularios.js'
 import { RUTA_INICIAR_SESION, RUTA_TERMINOS } from '../datos/rutas.js'
+import useFormulario from '../hooks/useFormulario.js'
 import {
-  hayErrores,
-  revalidarCamposConError,
   validarApellido,
-  validarCampos,
   validarConfirmacion,
   validarContrasenaNueva,
   validarCorreo,
@@ -37,37 +34,7 @@ const REGLAS = {
 }
 
 const Registro = () => {
-  const [valores, setValores] = useState(VALORES_INICIALES)
-  const [errores, setErrores] = useState({})
-  const [exito, setExito] = useState(false)
-
-  const cambiarValor = (evento) => {
-    const { name, type, value, checked } = evento.target
-    const nuevosValores = { ...valores, [name]: type === 'checkbox' ? checked : value }
-
-    setValores(nuevosValores)
-    setErrores(revalidarCamposConError(REGLAS, errores, nuevosValores))
-    setExito(false)
-  }
-
-  const enviar = (evento) => {
-    evento.preventDefault()
-    const nuevosErrores = validarCampos(REGLAS, valores)
-
-    setErrores(nuevosErrores)
-    setExito(false)
-
-    if (hayErrores(nuevosErrores)) {
-      const primerCampo = Object.keys(nuevosErrores).find((campo) => nuevosErrores[campo] !== '')
-
-      evento.currentTarget.elements[primerCampo].focus()
-      return
-    }
-
-    setValores(VALORES_INICIALES)
-    setErrores({})
-    setExito(true)
-  }
+  const { valores, errores, exito, cambiarValor, enviar } = useFormulario(VALORES_INICIALES, REGLAS)
 
   return (
     <Container className="py-5">
