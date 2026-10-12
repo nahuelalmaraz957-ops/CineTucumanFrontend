@@ -59,6 +59,7 @@ const Butacas = ({ alAgregarEntrada }) => {
         titulo="Elegí tus butacas | Cine Tucumán"
         descripcion="Elegí hasta 6 butacas para tu función de Cine Tucumán."
       />
+      <meta name="robots" content="noindex" />
       <h1 className="mb-4">Elegí tus butacas</h1>
       {haEmpezado && (
         <p role="status">
