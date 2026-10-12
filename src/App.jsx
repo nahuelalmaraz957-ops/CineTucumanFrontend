@@ -6,6 +6,7 @@ import {
   RUTA_BUTACAS,
   RUTA_CANDYBAR,
   RUTA_CARRITO,
+  RUTA_CONFIRMACION,
   RUTA_DESCUBRIR,
   RUTA_FUNCIONES,
   RUTA_INICIAR_SESION,
@@ -18,6 +19,7 @@ import {
 import Butacas from './pages/Butacas.jsx'
 import CandyBar from './pages/CandyBar.jsx'
 import Carrito from './pages/Carrito.jsx'
+import Confirmacion from './pages/Confirmacion.jsx'
 import DetallePelicula from './pages/DetallePelicula.jsx'
 import Funciones from './pages/Funciones.jsx'
 import Inicio from './pages/Inicio.jsx'
@@ -100,6 +102,7 @@ const App = () => {
           path={RUTA_CARRITO}
           element={<Carrito items={carrito} alQuitar={quitarDelCarrito} alVaciar={vaciarCarrito} />}
         />
+        <Route path={RUTA_CONFIRMACION} element={<Confirmacion />} />
         <Route path={RUTA_INICIAR_SESION} element={<IniciarSesion />} />
         <Route path={RUTA_RECUPERAR_CONTRASENA} element={<RecuperarContrasena />} />
         <Route path={RUTA_REGISTRO} element={<Registro />} />
