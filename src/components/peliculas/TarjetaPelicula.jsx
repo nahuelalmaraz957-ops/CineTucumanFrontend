@@ -18,7 +18,7 @@ const TarjetaPelicula = ({ pelicula, tieneBoton = true }) => {
   const tieneFicha = tieneFichaCompleta(pelicula)
 
   return (
-    <Card className="tarjeta-interactiva tarjeta-entrada h-100">
+    <Card className="tarjeta-interactiva tarjeta-entrada tarjeta-horizontal h-100">
       <Ratio aspectRatio="2x3">
         <Card.Img variant="top" src={pelicula.poster} alt={`Póster de ${pelicula.titulo}`} />
       </Ratio>
