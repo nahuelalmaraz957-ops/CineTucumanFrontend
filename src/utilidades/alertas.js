@@ -26,5 +26,5 @@ export const avisarFaltaConfiguracion = () =>
     ...OPCIONES_BASE,
     icon: 'warning',
     title: 'Falta configurar la API',
-    text: 'Creá un archivo .env a partir de .env.example y completá VITE_API_KEY.',
+    text: 'Creá un archivo .env con VITE_API_URL, VITE_API_KEY y VITE_IMAGES_URL. El README explica cómo.',
   })
