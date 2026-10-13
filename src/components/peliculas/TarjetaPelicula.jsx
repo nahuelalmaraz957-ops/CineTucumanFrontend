@@ -18,19 +18,17 @@ const TarjetaPelicula = ({ pelicula, tieneBoton = true }) => {
   const tieneFicha = tieneFichaCompleta(pelicula)
 
   return (
-    <Card className="tarjeta-interactiva tarjeta-entrada h-100">
-      <Link to={rutaDetalle(pelicula.id)} tabIndex={-1} aria-hidden="true">
-        <Ratio aspectRatio="2x3">
-          <Card.Img variant="top" src={pelicula.poster} alt={`Póster de ${pelicula.titulo}`} />
-        </Ratio>
-      </Link>
+    <Card className="tarjeta-interactiva tarjeta-entrada tarjeta-horizontal h-100">
+      <Ratio aspectRatio="2x3">
+        <Card.Img variant="top" src={pelicula.poster} alt={`Póster de ${pelicula.titulo}`} />
+      </Ratio>
       <div className="tarjeta-entrada-perforacion" />
       <Card.Body className="d-flex flex-column">
         <Badge bg={obtenerVarianteEstado(pelicula.estado)} className="align-self-start mb-2">
           {formatearEstado(pelicula.estado)}
         </Badge>
         <Card.Title as="h3" className="h5">
-          <Link to={rutaDetalle(pelicula.id)} className="text-reset text-decoration-none">
+          <Link to={rutaDetalle(pelicula.id)} className="text-reset text-decoration-none stretched-link">
             {pelicula.titulo}
           </Link>
         </Card.Title>
@@ -53,7 +51,7 @@ const TarjetaPelicula = ({ pelicula, tieneBoton = true }) => {
           </Card.Text>
         )}
         {estaEnCartelera && tieneBoton && (
-          <Button as={Link} to={rutaFunciones(pelicula.id)} variant="marca" className="mt-auto">
+          <Button as={Link} to={rutaFunciones(pelicula.id)} variant="marca" className="mt-auto position-relative z-1">
             Ver funciones
           </Button>
         )}
