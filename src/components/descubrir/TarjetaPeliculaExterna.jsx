@@ -8,7 +8,14 @@ const TarjetaPeliculaExterna = ({ pelicula }) => {
     <Card className="tarjeta-entrada h-100">
       <Ratio aspectRatio="2x3">
         {pelicula.poster ? (
-          <Card.Img variant="top" src={pelicula.poster} alt={`Póster de ${pelicula.titulo}`} loading="lazy" />
+          <Card.Img
+            variant="top"
+            src={pelicula.poster}
+            alt={`Póster de ${pelicula.titulo}`}
+            width={342}
+            height={513}
+            loading="lazy"
+          />
         ) : (
           <div className="d-flex align-items-center justify-content-center bg-body-secondary text-body-secondary p-3 text-center">
             Sin póster disponible
