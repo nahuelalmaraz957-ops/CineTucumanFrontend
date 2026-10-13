@@ -19,7 +19,13 @@ const TrailerYoutube = ({ idVideo, titulo }) => {
         />
       ) : (
         <button type="button" className="trailer-fachada" onClick={() => setReproduciendo(true)}>
-          <img src={`${URL_MINIATURA_YOUTUBE}/${idVideo}/hqdefault.jpg`} alt="" loading="lazy" />
+          <img
+            src={`${URL_MINIATURA_YOUTUBE}/${idVideo}/hqdefault.jpg`}
+            alt=""
+            width={480}
+            height={360}
+            loading="lazy"
+          />
           <span className="trailer-fachada-boton">
             <Icono nombre="reproducir" tamano={22} /> Reproducir tráiler
           </span>

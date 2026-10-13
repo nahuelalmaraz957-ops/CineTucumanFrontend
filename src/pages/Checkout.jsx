@@ -117,13 +117,13 @@ const Checkout = ({ items, alConfirmarCompra }) => {
                   <CampoFormulario
                     id="pago-vencimiento"
                     nombre="vencimiento"
-                    etiqueta="Vencimiento (MM/AA)"
+                    etiqueta="Vencimiento"
                     valor={valores.vencimiento}
                     error={errores.vencimiento}
                     autoComplete="off"
                     inputMode="numeric"
                     maxLength={5}
-                    placeholder="09/28"
+                    placeholder="MM/AA"
                     disabled={estaProcesando}
                     alCambiar={cambiarValor}
                   />

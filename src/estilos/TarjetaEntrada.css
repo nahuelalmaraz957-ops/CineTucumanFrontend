@@ -28,3 +28,42 @@
 .tarjeta-entrada-perforacion::after {
   right: -13px;
 }
+
+@media (max-width: 575.98px) {
+  .tarjeta-horizontal {
+    flex-direction: row;
+    min-height: 13rem;
+  }
+
+  .tarjeta-horizontal > .ratio {
+    flex: 0 0 38%;
+    max-width: 38%;
+    align-self: stretch;
+  }
+
+  .tarjeta-horizontal > .ratio::before {
+    display: none;
+  }
+
+  .tarjeta-horizontal > .ratio > img {
+    object-fit: cover;
+  }
+
+  .tarjeta-horizontal > .tarjeta-entrada-perforacion {
+    align-self: stretch;
+    border-top: 0;
+    border-left: 3px dashed var(--bs-body-bg);
+  }
+
+  .tarjeta-horizontal > .tarjeta-entrada-perforacion::before {
+    top: -13px;
+    left: -14px;
+  }
+
+  .tarjeta-horizontal > .tarjeta-entrada-perforacion::after {
+    top: auto;
+    right: auto;
+    bottom: -13px;
+    left: -14px;
+  }
+}

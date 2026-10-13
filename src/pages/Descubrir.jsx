@@ -99,8 +99,8 @@ const Descubrir = () => {
       </Form>
       {!apiConfigurada && (
         <Alert variant="warning">
-          Falta configurar la API. Creá un archivo <code>.env</code> a partir de <code>.env.example</code> y completá{' '}
-          <code>VITE_API_KEY</code>.
+          Falta configurar la API. Creá un archivo <code>.env</code> con <code>VITE_API_URL</code>,{' '}
+          <code>VITE_API_KEY</code> y <code>VITE_IMAGES_URL</code>: el README explica cómo.
         </Alert>
       )}
       {cargando && (

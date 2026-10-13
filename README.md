@@ -55,11 +55,10 @@ Se necesita **Node.js 22** y npm.
 git clone https://github.com/nahuelalmaraz957-ops/CineTucumanFrontend.git
 cd CineTucumanFrontend
 npm install
-cp .env.example .env
 npm run dev
 ```
 
-Después de `cp .env.example .env`, hay que completar `VITE_API_KEY` en el archivo `.env` con una clave gratuita de TMDB. Sin ella el sitio funciona igual, y la página «Más películas del mundo» avisa que falta configurar la API.
+La página «Más películas del mundo» necesita una clave gratuita de TMDB, que se carga en un archivo `.env` (ver «Variables de entorno»). Sin ella el sitio funciona igual, y esa página avisa que falta configurar la API.
 
 | Comando | Para qué |
 |---|---|
@@ -72,13 +71,21 @@ Después de cada `git pull` que cambie `package.json`, hay que volver a correr `
 
 ## Variables de entorno
 
+Se guardan en un archivo `.env` en la raíz del proyecto, que hay que crear a mano con este contenido (reemplazá `tu_clave_de_tmdb` por tu clave, que se obtiene gratis en la sección API de la configuración de la cuenta de themoviedb.org):
+
+```
+VITE_API_URL=https://api.themoviedb.org/3
+VITE_API_KEY=tu_clave_de_tmdb
+VITE_IMAGES_URL=https://image.tmdb.org/t/p/w342
+```
+
 | Variable | Qué guarda |
 |---|---|
 | `VITE_API_URL` | La dirección de la API de TMDB |
 | `VITE_API_KEY` | La clave de la API |
 | `VITE_IMAGES_URL` | La dirección de las imágenes de TMDB |
 
-- El archivo `.env` **no se sube a GitHub**: figura en `.gitignore`. Se sube `.env.example`, que no tiene secretos.
+- El archivo `.env` **no se sube a GitHub**: figura en `.gitignore`. El repositorio no incluye ningún archivo con claves, ni siquiera de ejemplo.
 - En Vercel se cargan en **Settings → Environment Variables** y hay que volver a desplegar, porque Vite las incorpora al compilar.
 - Como la API se consulta desde el navegador, la clave queda visible en el código publicado. Con el servidor propio, la clave pasará a vivir en el servidor.
 
