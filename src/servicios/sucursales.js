@@ -1,9 +1,4 @@
 import clienteBackend from './backend.js'
-import { sucursales } from '../datos/sucursales.js'
-
-export const obtenerSucursales = () => sucursales
-
-export const obtenerSucursalesDestacadas = () => sucursales.filter((sucursal) => sucursal.destacada)
 
 const ETIQUETAS_ENLACE = {
   sitio: 'Sitio oficial',

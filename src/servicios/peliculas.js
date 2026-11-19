@@ -1,12 +1,6 @@
 import { obtenerFechaDeHoy } from '../utilidades/fechas.js'
 import { calcularEstado } from '../utilidades/peliculas.js'
 import clienteBackend from './backend.js'
-import { cartelera } from '../datos/cartelera.js'
-import { detallesPeliculas } from '../datos/detallesPeliculas.js'
-
-export const obtenerPelicula = (idPelicula) => cartelera.find((pelicula) => pelicula.id === idPelicula)
-
-export const obtenerDetalle = (idPelicula) => detallesPeliculas[idPelicula]
 
 const LARGO_SINOPSIS_CORTA = 160
 

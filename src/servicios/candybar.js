@@ -1,7 +1,4 @@
 import clienteBackend from './backend.js'
-import { productosCandyBar } from '../datos/candybar.js'
-
-export const obtenerProductos = () => productosCandyBar
 
 const adaptarProducto = (producto) => ({
   id: producto.slug,
