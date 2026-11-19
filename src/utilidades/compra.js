@@ -1,7 +1,6 @@
 import { matchPath } from 'react-router-dom'
 import { RUTA_BUTACAS, RUTA_FUNCIONES, RUTA_PELICULAS } from '../datos/rutas.js'
 import { obtenerFuncion } from '../servicios/funciones.js'
-import { obtenerPelicula } from '../servicios/peliculas.js'
 import { TIPO_ENTRADA } from './carrito.js'
 
 const obtenerIdPeliculaDeLaPagina = (ubicacion) => {
@@ -24,7 +23,7 @@ export const obtenerPeliculaDelCarrito = (items) => {
   return entrada ? obtenerFuncion(entrada.idFuncion)?.peliculaId : null
 }
 
-export const obtenerPeliculaEnJuego = (ubicacion, idPeliculaDelCarrito) => {
+export const obtenerPeliculaEnJuego = (ubicacion, idPeliculaDelCarrito, obtenerPelicula) => {
   const idDeLaPagina = obtenerIdPeliculaDeLaPagina(ubicacion)
 
   return (obtenerPelicula(idDeLaPagina) ? idDeLaPagina : idPeliculaDelCarrito) ?? null

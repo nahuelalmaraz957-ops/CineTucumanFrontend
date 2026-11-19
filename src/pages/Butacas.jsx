@@ -8,7 +8,7 @@ import { MAXIMO_BUTACAS } from '../datos/butacas.js'
 import { ESTADO_FUNCION_AGOTADA } from '../datos/estados.js'
 import { RUTA_CANDYBAR, RUTA_PELICULAS } from '../datos/rutas.js'
 import { obtenerButacasOcupadas, obtenerFuncion } from '../servicios/funciones.js'
-import { obtenerPelicula } from '../servicios/peliculas.js'
+import { useCatalogo } from '../hooks/useCatalogo.js'
 import { TIPO_ENTRADA } from '../utilidades/carrito.js'
 import { obtenerFechaDeHoy, obtenerHoraActual } from '../utilidades/fechas.js'
 import { yaEmpezo } from '../utilidades/funciones.js'
@@ -18,6 +18,7 @@ const Butacas = ({ alAgregarEntrada }) => {
   const { idFuncion } = useParams()
   const navigate = useNavigate()
   const { registrarButacas } = useOutletContext()
+  const { obtenerPelicula } = useCatalogo()
 
   useEffect(() => {
     return () => registrarButacas(0)

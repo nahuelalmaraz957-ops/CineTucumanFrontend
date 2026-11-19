@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
 import { Outlet, useLocation, useNavigationType } from 'react-router-dom'
 import { AVISO_CAMBIAR_FUNCION, AVISO_ELEGIR_PELICULA } from '../../datos/avisos.js'
+import { useCatalogo } from '../../hooks/useCatalogo.js'
 import { obtenerPeliculaEnJuego } from '../../utilidades/compra.js'
 import AvisoCambiarFuncion from './AvisoCambiarFuncion.jsx'
 import AvisoElegirPelicula from './AvisoElegirPelicula.jsx'
@@ -9,12 +10,13 @@ import Navbar from './Navbar.jsx'
 
 const Layout = ({ cantidadEnCarrito, idPeliculaDelCarrito }) => {
   const ubicacion = useLocation()
+  const { obtenerPelicula } = useCatalogo()
   const tipoNavegacion = useNavigationType()
   const [aviso, setAviso] = useState({ ruta: null, tipo: null })
   const [seleccion, setSeleccion] = useState({ ruta: null, cantidad: 0 })
   const tipoDeAviso = aviso.ruta === ubicacion.pathname ? aviso.tipo : null
   const butacasElegidas = seleccion.ruta === ubicacion.pathname ? seleccion.cantidad : 0
-  const idPeliculaEnJuego = obtenerPeliculaEnJuego(ubicacion, idPeliculaDelCarrito)
+  const idPeliculaEnJuego = obtenerPeliculaEnJuego(ubicacion, idPeliculaDelCarrito, obtenerPelicula)
 
   const abrirAviso = (tipo) => setAviso({ ruta: ubicacion.pathname, tipo })
   const cerrarAviso = () => setAviso({ ruta: null, tipo: null })

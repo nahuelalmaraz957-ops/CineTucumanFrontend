@@ -5,20 +5,20 @@ import Portada from '../components/peliculas/Portada.jsx'
 import Seo from '../components/seo/Seo.jsx'
 import TarjetaSucursal from '../components/sucursales/TarjetaSucursal.jsx'
 import { AVISO_ELEGIR_PELICULA } from '../datos/avisos.js'
-import { cartelera } from '../datos/cartelera.js'
 import { ESTADO_EN_CARTELERA, ESTADO_PROXIMAMENTE } from '../datos/estados.js'
 import { RUTA_DESCUBRIR, RUTA_SUCURSALES, rutaFunciones } from '../datos/rutas.js'
-import { obtenerSucursalesDestacadas } from '../servicios/sucursales.js'
-
-const destacadas = cartelera.filter((pelicula) => pelicula.destacada && pelicula.estado === ESTADO_EN_CARTELERA)
-const proximamente = cartelera.filter((pelicula) => pelicula.estado === ESTADO_PROXIMAMENTE && pelicula.fechaEstreno)
-const proximosEstrenos = cartelera.filter(
-  (pelicula) => pelicula.estado === ESTADO_PROXIMAMENTE && !pelicula.fechaEstreno,
-)
-const sucursalesDestacadas = obtenerSucursalesDestacadas()
+import { useCatalogo } from '../hooks/useCatalogo.js'
 
 const Inicio = () => {
   const { abrirAviso, idPeliculaEnJuego } = useOutletContext()
+  const { peliculas, sucursales } = useCatalogo()
+  const destacadas = peliculas.filter((pelicula) => pelicula.destacada && pelicula.estado === ESTADO_EN_CARTELERA)
+  const proximamente = peliculas.filter((pelicula) => pelicula.estado === ESTADO_PROXIMAMENTE && pelicula.fechaEstreno)
+  const proximosEstrenos = peliculas.filter(
+    (pelicula) => pelicula.estado === ESTADO_PROXIMAMENTE && !pelicula.fechaEstreno,
+  )
+  const sucursalesDestacadas = sucursales.filter((sucursal) => sucursal.destacada)
+
   return (
     <>
       <Seo
