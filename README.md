@@ -25,15 +25,17 @@ Este repositorio es el frontend hecho con React. Retoma el primer trabajo de la 
 
 Hoy el sitio permite:
 
+**Las películas, las sucursales y los productos del Candy Bar se piden al servidor propio** (el repositorio del backend, hecho con NestJS y PostgreSQL), que tiene que estar encendido. Las funciones, las butacas y el carrito todavía usan datos locales: pasan al servidor en las próximas entregas.
+
 - **Inicio:** portada con la película principal, películas destacadas, próximos estrenos y cines de Tucumán.
-- **Cartelera** (`/peliculas`): 20 películas, con buscador por título (sin importar acentos ni mayúsculas) y filtro por estado (en cartelera o próximamente).
-- **Ficha de cada película** (`/peliculas/:idPelicula`): sinopsis, ficha técnica, reparto y tráiler, que se carga recién al tocar «Reproducir tráiler». Donde falta un dato se muestra «Por confirmar».
+- **Cartelera** (`/peliculas`): las películas de la base de datos (20 de ejemplo), con buscador por título (sin importar acentos ni mayúsculas) y filtro por estado (en cartelera o próximamente).
+- **Ficha de cada película** (`/peliculas/:idPelicula`, con el `slug` de la película): sinopsis, ficha técnica, reparto y tráiler, que se carga recién al tocar «Reproducir tráiler». Donde falta un dato se muestra «Por confirmar».
 - **Funciones** (`/funciones?pelicula=…`): los próximos 7 días, con filtros por fecha y formato. Las funciones que ya empezaron se marcan y no se pueden comprar.
 - **Butacas** (`/butacas/:idFuncion`): mapa de la sala, hasta 6 butacas por compra, butacas accesibles y confirmación antes de salir si ya se eligieron.
-- **Candy Bar** (`/candybar`): paso opcional entre las butacas y el carrito, con hasta 10 unidades por producto.
+- **Candy Bar** (`/candybar`): los productos activos de la base de datos, en un paso opcional entre las butacas y el carrito, con hasta 10 unidades por producto.
 - **Carrito** (`/carrito`): entradas y productos, que se conservan al recargar porque se guardan en el navegador.
 - **Checkout** (`/checkout`) y **confirmación** (`/confirmacion`): resumen de la compra y pago con una tarjeta simulada, con validaciones. Al confirmar se vacía el carrito y se muestra el número de orden. No se cobra nada ni se generan entradas reales.
-- **Sucursales** (`/sucursales`): dirección, cómo llegar con el mapa y enlaces oficiales de cada cine.
+- **Sucursales** (`/sucursales`): dirección, imagen, cómo llegar con el mapa y enlaces oficiales de cada cine, desde la base de datos.
 - **Más películas del mundo** (`/descubrir`): películas en cartelera en Argentina y búsqueda por título, con datos de la API pública de TMDB.
 - **Inicio de sesión y registro:** formularios con validaciones. Todavía no inician una sesión real: avisan que eso llegará con el servidor.
 - **«Comprar entradas»** lleva a las funciones de la película elegida o, si no hay ninguna, muestra un aviso que lo explica.
@@ -51,12 +53,16 @@ Estas partes necesitan un servidor y una base de datos, y llegan con la API prop
 
 Se necesita **Node.js 22** y npm.
 
+Primero hay que encender el backend (repositorio `CineTucumanBackend`, con su base de datos creada): `npm run start:dev` lo deja escuchando en `http://localhost:4000`. Después, en este repositorio:
+
 ```
 git clone https://github.com/nahuelalmaraz957-ops/CineTucumanFrontend.git
 cd CineTucumanFrontend
 npm install
 npm run dev
 ```
+
+El sitio se abre en `http://localhost:5173`, que es la dirección que el backend permite por defecto (`FRONTEND_URL`). Si el backend no responde, en lugar del sitio aparece un aviso con un botón «Reintentar».
 
 La página «Más películas del mundo» necesita una clave gratuita de TMDB, que se carga en un archivo `.env` (ver «Variables de entorno»). Sin ella el sitio funciona igual, y esa página avisa que falta configurar la API.
 
@@ -81,6 +87,7 @@ VITE_IMAGES_URL=https://image.tmdb.org/t/p/w342
 
 | Variable | Qué guarda |
 |---|---|
+| `VITE_BACKEND_URL` | La dirección del backend propio. Es opcional: si no está, el sitio usa `http://localhost:4000` |
 | `VITE_API_URL` | La dirección de la API de TMDB |
 | `VITE_API_KEY` | La clave de la API |
 | `VITE_IMAGES_URL` | La dirección de las imágenes de TMDB |
@@ -94,7 +101,7 @@ VITE_IMAGES_URL=https://image.tmdb.org/t/p/w342
 - React 19 y Vite.
 - React Bootstrap y Bootstrap 5.3 para los componentes y los estilos.
 - React Router para la navegación entre páginas.
-- Axios para las peticiones a la API y SweetAlert2 para los avisos de error.
+- Axios para las peticiones al backend propio y a la API de TMDB, y SweetAlert2 para los avisos de error.
 - La API pública de TMDB (The Movie Database).
 - JavaScript con módulos ES, y CSS propio solo para lo que Bootstrap no cubre.
 - ESLint para el análisis del código.
@@ -104,17 +111,18 @@ VITE_IMAGES_URL=https://image.tmdb.org/t/p/w342
 
 ```
 src/
-  assets/       Imágenes: pósters, sucursales y la mascota
+  assets/       Imágenes: fotos del reparto y la mascota (los pósters y las fotos de sucursales las sirve el backend)
   components/   Piezas reutilizables, agrupadas por tema
-  datos/        Información fija: películas, funciones, sucursales, rutas y textos
+  contextos/    Contextos de React (el catálogo)
+  datos/        Información fija: funciones de ejemplo, rutas y textos
   estilos/      CSS propio
-  hooks/        Hooks propios (useFormulario)
+  hooks/        Hooks propios (useFormulario y useCatalogo)
   pages/        Una página por ruta
-  servicios/    Acceso a los datos y a la API
+  servicios/    Acceso al backend propio y a la API de TMDB
   utilidades/   Funciones puras: fechas, formatos, carrito y validaciones
 ```
 
-Las páginas piden los datos a la capa de servicios. Hoy los servicios leen archivos locales o la API de TMDB; cuando exista la API propia, solo cambian esas funciones.
+Las páginas piden los datos a la capa de servicios. `CatalogoProvider` pide al backend las películas, las sucursales y los productos una sola vez al abrir el sitio y los deja disponibles con el hook `useCatalogo`; cada servicio convierte la respuesta de la API al formato que usan los componentes (por ejemplo, el `slug` de una película es su `id` en las direcciones del sitio). Las funciones y las butacas todavía salen de archivos locales; la búsqueda de «Más películas del mundo» usa la API de TMDB.
 
 ## Estrategias de SEO
 
@@ -135,8 +143,9 @@ Las páginas piden los datos a la capa de servicios. Hoy los servicios leen arch
 
 ## Decisiones y límites conocidos
 
-- **Sin servidor todavía:** el inicio de sesión y el registro solo validan, y el pago del checkout es una simulación: no se cobra nada ni se guardan datos de tarjeta.
-- **Datos de ejemplo:** solo Spider-Man tiene funciones, el Candy Bar tiene un producto y las butacas ocupadas se simulan según el estado de cada función.
+- **Servidor propio parcial:** las películas, las sucursales y el Candy Bar salen de la base de datos. El inicio de sesión y el registro solo validan, y el pago del checkout es una simulación: no se cobra nada ni se guardan datos de tarjeta.
+- **Datos de ejemplo locales:** solo Spider-Man tiene funciones y las butacas ocupadas se simulan según el estado de cada función. El reparto de la ficha también es local, porque la base todavía no lo guarda.
+- **El sitio publicado en Vercel** necesita el backend publicado en internet: mientras el backend corra solo en una computadora, ahí se ve el aviso «No pudimos cargar Cine Tucumán».
 - **La clave de TMDB** queda visible en el navegador mientras la API se consulte desde el frontend.
 - **El reproductor de YouTube** escribe sus propios avisos en la consola al reproducir el tráiler; no son del sitio.
 
