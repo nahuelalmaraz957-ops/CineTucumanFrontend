@@ -7,11 +7,12 @@ import Seo from '../components/seo/Seo.jsx'
 import { FORMATO_TODOS } from '../datos/filtros.js'
 import { RUTA_PELICULAS } from '../datos/rutas.js'
 import { obtenerFunciones } from '../servicios/funciones.js'
-import { obtenerPelicula } from '../servicios/peliculas.js'
+import { useCatalogo } from '../hooks/useCatalogo.js'
 import { obtenerFechaDeHoy, obtenerHoraActual } from '../utilidades/fechas.js'
 import { yaEmpezo } from '../utilidades/funciones.js'
 
 const Funciones = () => {
+  const { obtenerPelicula } = useCatalogo()
   const [parametros] = useSearchParams()
   const idPelicula = parametros.get('pelicula')
   const pelicula = obtenerPelicula(idPelicula)

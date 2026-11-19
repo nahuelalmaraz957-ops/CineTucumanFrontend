@@ -3,12 +3,12 @@ import { Button, Col, Container, Row } from 'react-bootstrap'
 import TarjetaProducto from '../components/candybar/TarjetaProducto.jsx'
 import Seo from '../components/seo/Seo.jsx'
 import { RUTA_CARRITO } from '../datos/rutas.js'
-import { obtenerProductos } from '../servicios/candybar.js'
-import { obtenerPelicula } from '../servicios/peliculas.js'
+import { useCatalogo } from '../hooks/useCatalogo.js'
 import { TIPO_CANDYBAR, TIPO_ENTRADA, crearIdProducto, obtenerCantidad } from '../utilidades/carrito.js'
 import { obtenerPeliculaDelCarrito } from '../utilidades/compra.js'
 
 const CandyBar = ({ items, alAgregarProducto }) => {
+  const { obtenerPelicula, productos } = useCatalogo()
   const hayProductos = items.some((item) => item.tipo === TIPO_CANDYBAR)
   const entrada = items.find((item) => item.tipo === TIPO_ENTRADA)
   const pelicula = obtenerPelicula(obtenerPeliculaDelCarrito(items))
@@ -26,7 +26,7 @@ const CandyBar = ({ items, alAgregarProducto }) => {
       <h1 className="mb-3">Candy Bar</h1>
       <p className="lead mb-4">{mensaje}</p>
       <Row xs={1} md={2} lg={3} className="g-4">
-        {obtenerProductos().map((producto) => (
+        {productos.map((producto) => (
           <Col key={producto.id}>
             <TarjetaProducto
               producto={producto}

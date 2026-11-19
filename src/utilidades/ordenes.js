@@ -1,13 +1,12 @@
 import { PREFIJO_NUMERO_DE_ORDEN } from '../datos/pago.js'
 import { obtenerFuncion } from '../servicios/funciones.js'
-import { obtenerPelicula } from '../servicios/peliculas.js'
 import { TIPO_CANDYBAR, TIPO_ENTRADA, calcularTotal } from './carrito.js'
 import { obtenerFechaDeHoy, obtenerHoraActual } from './fechas.js'
 import { yaEmpezo } from './funciones.js'
 
 const CLAVE_ULTIMA_ORDEN = 'cine-tucuman:ultima-orden'
 
-const armarEntrada = (item) => {
+const armarEntrada = (item, obtenerPelicula) => {
   const funcion = obtenerFuncion(item.idFuncion)
   const pelicula = obtenerPelicula(funcion.peliculaId)
 
@@ -31,8 +30,8 @@ const esOrdenValida = (orden) =>
   Array.isArray(orden.entradas) &&
   Array.isArray(orden.productos)
 
-export const armarResumen = (items) => ({
-  entradas: items.filter((item) => item.tipo === TIPO_ENTRADA).map(armarEntrada),
+export const armarResumen = (items, obtenerPelicula) => ({
+  entradas: items.filter((item) => item.tipo === TIPO_ENTRADA).map((item) => armarEntrada(item, obtenerPelicula)),
   productos: items
     .filter((item) => item.tipo === TIPO_CANDYBAR)
     .map(({ nombre, cantidad, precioUnitario }) => ({ nombre, cantidad, precioUnitario })),
@@ -45,13 +44,13 @@ export const crearOrden = (resumen) => ({
   ...resumen,
 })
 
-export const obtenerEntradasQueYaEmpezaron = (items) => {
+export const obtenerEntradasQueYaEmpezaron = (items, obtenerPelicula) => {
   const hoy = obtenerFechaDeHoy()
   const hora = obtenerHoraActual()
 
   return items
     .filter((item) => item.tipo === TIPO_ENTRADA && yaEmpezo(obtenerFuncion(item.idFuncion), hoy, hora))
-    .map(armarEntrada)
+    .map((item) => armarEntrada(item, obtenerPelicula))
 }
 
 export const guardarOrden = (orden) => {

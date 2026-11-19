@@ -1,9 +1,10 @@
 import { Badge, Button, Card } from 'react-bootstrap'
 import { obtenerFuncion } from '../../servicios/funciones.js'
-import { obtenerPelicula } from '../../servicios/peliculas.js'
+import { useCatalogo } from '../../hooks/useCatalogo.js'
 import { formatearFechaConDia, formatearMoneda } from '../../utilidades/formatos.js'
 
 const ItemCarrito = ({ item, alQuitar }) => {
+  const { obtenerPelicula } = useCatalogo()
   const funcion = obtenerFuncion(item.idFuncion)
   const pelicula = obtenerPelicula(funcion.peliculaId)
 

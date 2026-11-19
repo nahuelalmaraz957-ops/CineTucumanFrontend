@@ -6,6 +6,7 @@ import CampoFormulario from '../components/formularios/CampoFormulario.jsx'
 import Seo from '../components/seo/Seo.jsx'
 import { AVISO_PAGO_SIMULADO, DURACION_PAGO_SIMULADO } from '../datos/pago.js'
 import { RUTA_CARRITO, RUTA_CONFIRMACION, RUTA_PELICULAS } from '../datos/rutas.js'
+import { useCatalogo } from '../hooks/useCatalogo.js'
 import useFormulario from '../hooks/useFormulario.js'
 import { filtrarCvv, filtrarNumeroTarjeta, filtrarVencimiento } from '../utilidades/tarjeta.js'
 import { armarResumen, crearOrden, guardarOrden, obtenerEntradasQueYaEmpezaron } from '../utilidades/ordenes.js'
@@ -24,13 +25,14 @@ const FILTROS = { numero: filtrarNumeroTarjeta, vencimiento: filtrarVencimiento,
 
 const Checkout = ({ items, alConfirmarCompra }) => {
   const navigate = useNavigate()
+  const { obtenerPelicula } = useCatalogo()
   const [ordenEnProceso, setOrdenEnProceso] = useState(null)
   const [aviso, setAviso] = useState('')
-  const resumen = armarResumen(items)
+  const resumen = armarResumen(items, obtenerPelicula)
   const estaProcesando = ordenEnProceso !== null
 
   const confirmar = () => {
-    const [empezada] = obtenerEntradasQueYaEmpezaron(items)
+    const [empezada] = obtenerEntradasQueYaEmpezaron(items, obtenerPelicula)
 
     if (empezada) {
       setAviso(
