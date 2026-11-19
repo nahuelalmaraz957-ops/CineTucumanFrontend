@@ -1,9 +1,11 @@
 import { Col, Container, Row } from 'react-bootstrap'
 import Seo from '../components/seo/Seo.jsx'
 import TarjetaSucursalDetalle from '../components/sucursales/TarjetaSucursalDetalle.jsx'
-import { obtenerSucursales } from '../servicios/sucursales.js'
+import { useCatalogo } from '../hooks/useCatalogo.js'
 
 const Sucursales = () => {
+  const { sucursales } = useCatalogo()
+
   return (
     <Container className="py-4">
       <Seo
@@ -15,7 +17,7 @@ const Sucursales = () => {
         Elegí dónde ir al cine. Los enlaces abren el sitio de cada cine y el mapa en otra pestaña.
       </p>
       <Row xs={1} md={2} lg={3} className="g-4">
-        {obtenerSucursales().map((sucursal) => (
+        {sucursales.map((sucursal) => (
           <Col key={sucursal.id}>
             <TarjetaSucursalDetalle sucursal={sucursal} />
           </Col>

@@ -4,9 +4,10 @@ import { Badge, Button, Col, Container, Ratio, Row } from 'react-bootstrap'
 import TrailerYoutube from '../components/peliculas/TrailerYoutube.jsx'
 import Seo from '../components/seo/Seo.jsx'
 import { ESTADO_EN_CARTELERA } from '../datos/estados.js'
+import { repartoPorPelicula } from '../datos/reparto.js'
 import { rutaFunciones } from '../datos/rutas.js'
 import { obtenerFunciones } from '../servicios/funciones.js'
-import { obtenerDetalle, obtenerPelicula } from '../servicios/peliculas.js'
+import { useCatalogo } from '../hooks/useCatalogo.js'
 import {
   TEXTO_POR_CONFIRMAR,
   formatearDuracion,
@@ -24,38 +25,34 @@ const obtenerLineaResumen = (pelicula) => {
 
   if (!tieneFichaCompleta(pelicula)) return TEXTO_POR_CONFIRMAR
 
-  return [
-    pelicula.generos.join(' · '),
-    formatearDuracion(pelicula.duracionMinutos),
-    pelicula.clasificacion,
-    pelicula.formato,
-  ].join(' · ')
+  return [pelicula.generos.join(' · '), formatearDuracion(pelicula.duracionMinutos), pelicula.clasificacion].join(' · ')
 }
 
 const DetallePelicula = () => {
   const { idPelicula } = useParams()
+  const { obtenerPelicula } = useCatalogo()
   const pelicula = obtenerPelicula(idPelicula)
 
   if (pelicula === undefined) return <NoEncontrada />
 
-  const detalle = obtenerDetalle(idPelicula)
+  const reparto = repartoPorPelicula[idPelicula]
   const estaEnCartelera = pelicula.estado === ESTADO_EN_CARTELERA
   const tieneFunciones = obtenerFunciones(idPelicula).length > 0
   const fichaTecnica = [
-    { etiqueta: 'Director', valor: detalle?.director ?? TEXTO_POR_CONFIRMAR },
-    { etiqueta: 'Año', valor: detalle?.anio ?? TEXTO_POR_CONFIRMAR },
+    { etiqueta: 'Director', valor: pelicula.director ?? TEXTO_POR_CONFIRMAR },
+    { etiqueta: 'Año', valor: pelicula.anio ?? TEXTO_POR_CONFIRMAR },
     {
       etiqueta: 'Estreno en Argentina',
       valor: pelicula.fechaEstreno ? formatearFechaLarga(pelicula.fechaEstreno) : TEXTO_POR_CONFIRMAR,
     },
-    { etiqueta: 'Origen', valor: detalle?.paisOrigen ?? TEXTO_POR_CONFIRMAR },
+    { etiqueta: 'Origen', valor: pelicula.paisOrigen ?? TEXTO_POR_CONFIRMAR },
   ]
 
   return (
     <Container className="py-4">
       <Seo
         titulo={`${pelicula.titulo} | Cine Tucumán`}
-        descripcion={detalle?.sinopsisCorta ?? `Conocé la ficha de ${pelicula.titulo} en Cine Tucumán.`}
+        descripcion={pelicula.sinopsisCorta ?? `Conocé la ficha de ${pelicula.titulo} en Cine Tucumán.`}
       />
       <Row className="g-4 mb-5">
         <Col xs={8} sm={6} lg={4} className="mx-auto mx-lg-0">
@@ -68,7 +65,7 @@ const DetallePelicula = () => {
             {formatearEstado(pelicula.estado)}
           </Badge>
           <h1>{pelicula.titulo}</h1>
-          {detalle && <p className="text-body-secondary">{detalle.tituloOriginal}</p>}
+          {pelicula.tituloOriginal && <p className="text-body-secondary">{pelicula.tituloOriginal}</p>}
           <p className="lead">{obtenerLineaResumen(pelicula)}</p>
           {estaEnCartelera && tieneFunciones && (
             <Button as={Link} to={rutaFunciones(pelicula.id)} variant="marca" size="lg">
@@ -86,7 +83,7 @@ const DetallePelicula = () => {
         <h2 id="titulo-sinopsis" className="mb-3">
           Sinopsis
         </h2>
-        <p>{detalle?.sinopsis ?? TEXTO_POR_CONFIRMAR}</p>
+        <p>{pelicula.sinopsis ?? TEXTO_POR_CONFIRMAR}</p>
       </section>
       <section className="mb-5" aria-labelledby="titulo-ficha-tecnica">
         <h2 id="titulo-ficha-tecnica" className="mb-3">
@@ -101,13 +98,13 @@ const DetallePelicula = () => {
           ))}
         </dl>
       </section>
-      {detalle?.reparto && (
+      {reparto && (
         <section className="mb-5" aria-labelledby="titulo-reparto">
           <h2 id="titulo-reparto" className="mb-3">
             Reparto principal
           </h2>
           <Row xs={2} sm={3} lg={6} className="g-3">
-            {detalle.reparto.map((actor) => (
+            {reparto.map((actor) => (
               <Col key={actor.nombre} className="text-center">
                 <Ratio aspectRatio="1x1">
                   <img className="rounded-circle object-fit-cover" src={actor.foto} alt="" />
@@ -118,12 +115,12 @@ const DetallePelicula = () => {
           </Row>
         </section>
       )}
-      {detalle?.idTrailerYoutube && (
+      {pelicula.idTrailerYoutube && (
         <section aria-labelledby="titulo-trailer">
           <h2 id="titulo-trailer" className="mb-3">
             Tráiler oficial
           </h2>
-          <TrailerYoutube idVideo={detalle.idTrailerYoutube} titulo={pelicula.titulo} />
+          <TrailerYoutube idVideo={pelicula.idTrailerYoutube} titulo={pelicula.titulo} />
         </section>
       )}
     </Container>

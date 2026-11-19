@@ -4,12 +4,13 @@ import { Button, Container } from 'react-bootstrap'
 import FiltrosPeliculas from '../components/peliculas/FiltrosPeliculas.jsx'
 import SeccionPeliculas from '../components/peliculas/SeccionPeliculas.jsx'
 import Seo from '../components/seo/Seo.jsx'
-import { cartelera } from '../datos/cartelera.js'
 import { ESTADO_EN_CARTELERA, ESTADO_PROXIMAMENTE } from '../datos/estados.js'
 import { HASH_BUSCADOR, RUTA_DESCUBRIR } from '../datos/rutas.js'
+import { useCatalogo } from '../hooks/useCatalogo.js'
 import { normalizarTexto } from '../utilidades/busqueda.js'
 
 const Peliculas = () => {
+  const { peliculas: cartelera } = useCatalogo()
   const [termino, setTermino] = useState('')
   const [estado, setEstado] = useState('')
   const referenciaBuscador = useRef(null)

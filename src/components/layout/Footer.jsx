@@ -2,10 +2,12 @@ import { Link } from 'react-router-dom'
 import { Col, Container, Row } from 'react-bootstrap'
 import { columnasFooter } from '../../datos/navegacion.js'
 import { RUTA_SUCURSALES } from '../../datos/rutas.js'
-import { obtenerSucursales } from '../../servicios/sucursales.js'
+import { useCatalogo } from '../../hooks/useCatalogo.js'
 import '../../estilos/Footer.css'
 
 const Footer = () => {
+  const { sucursales } = useCatalogo()
+
   return (
     <footer className="pie-sitio border-top border-3 border-secondary" data-bs-theme="dark">
       <Container className="py-5">
@@ -34,7 +36,7 @@ const Footer = () => {
               </Link>
             </h3>
             <ul className="list-unstyled d-flex flex-column gap-2 mb-0">
-              {obtenerSucursales().map((sucursal) => (
+              {sucursales.map((sucursal) => (
                 <li key={sucursal.id}>{sucursal.nombre}</li>
               ))}
             </ul>

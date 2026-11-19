@@ -2,16 +2,22 @@ import { Link } from 'react-router-dom'
 import { Badge, Button, Col, Container, Ratio, Row } from 'react-bootstrap'
 import Icono from '../comunes/Icono.jsx'
 import pochoclin from '../../assets/imagenes/marca/pochoclin.png'
-import { ID_PELICULA_PORTADA } from '../../datos/peliculas.js'
+import { ID_PELICULA_PORTADA } from '../../datos/portada.js'
+import { ESTADO_EN_CARTELERA } from '../../datos/estados.js'
 import { rutaDetalle, rutaFunciones } from '../../datos/rutas.js'
-import { obtenerDetalle, obtenerPelicula } from '../../servicios/peliculas.js'
+import { useCatalogo } from '../../hooks/useCatalogo.js'
 import { formatearDuracion, formatearEstado, obtenerVarianteEstado } from '../../utilidades/formatos.js'
+import { tieneFichaCompleta } from '../../utilidades/peliculas.js'
 import '../../estilos/Marquesina.css'
 import '../../estilos/Portada.css'
 
 const Portada = () => {
-  const pelicula = obtenerPelicula(ID_PELICULA_PORTADA)
-  const detalle = obtenerDetalle(ID_PELICULA_PORTADA)
+  const { obtenerPelicula, peliculas } = useCatalogo()
+  const pelicula =
+    obtenerPelicula(ID_PELICULA_PORTADA) ??
+    peliculas.find((candidata) => candidata.destacada && candidata.estado === ESTADO_EN_CARTELERA)
+
+  if (pelicula === undefined) return null
 
   return (
     <section className="py-5" aria-labelledby="titulo-portada">
@@ -31,12 +37,14 @@ const Portada = () => {
                   </Badge>
                   <h1 id="titulo-portada">{pelicula.titulo}</h1>
                 </header>
-                <p className="text-body-secondary">{pelicula.generos.join(' · ')}</p>
-                <p className="text-body-secondary">
-                  <Icono nombre="reloj" tamano={16} /> {formatearDuracion(pelicula.duracionMinutos)} ·{' '}
-                  {pelicula.clasificacion}
-                </p>
-                <p>{detalle.sinopsisCorta}</p>
+                {pelicula.generos.length > 0 && <p className="text-body-secondary">{pelicula.generos.join(' · ')}</p>}
+                {tieneFichaCompleta(pelicula) && (
+                  <p className="text-body-secondary">
+                    <Icono nombre="reloj" tamano={16} /> {formatearDuracion(pelicula.duracionMinutos)} ·{' '}
+                    {pelicula.clasificacion}
+                  </p>
+                )}
+                {pelicula.sinopsisCorta && <p>{pelicula.sinopsisCorta}</p>}
                 <div className="d-flex flex-column flex-sm-row gap-3 mt-4">
                   <Button as={Link} to={rutaFunciones(pelicula.id)} variant="marca" size="lg">
                     Ver funciones

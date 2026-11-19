@@ -38,8 +38,7 @@ const TarjetaPelicula = ({ pelicula, tieneBoton = true }) => {
             <Card.Text className="small opacity-75 mb-1">
               <Icono nombre="reloj" tamano={14} /> {formatearDuracion(pelicula.duracionMinutos)}
             </Card.Text>
-            <Card.Text className="small opacity-75 mb-1">{pelicula.clasificacion}</Card.Text>
-            <Card.Text className="small opacity-75 mb-3">{pelicula.formato}</Card.Text>
+            <Card.Text className="small opacity-75 mb-3">{pelicula.clasificacion}</Card.Text>
           </>
         )}
         {estaEnCartelera && !tieneFicha && (
